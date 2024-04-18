@@ -29,20 +29,6 @@ function create(state) {
   }
 }
 
-// Method to remove task state from a file
-function remove(stateId) {
-  try {
-    const filePath = path.join(stateFolderPath, `${stateId}.json`);
-    fs.unlinkSync(filePath);
-    return {};
-  } catch (error) {
-    if (error.code === "ENOENT") {
-      return {};
-    }
-    throw { code: "failedToRemoveTaskState", note: error.note };
-  }
-}
-
 // Method to list task states in a folder
 function list() {
   try {
@@ -59,6 +45,5 @@ function list() {
 module.exports = {
   create,
   get,
-  remove,
   list,
 };

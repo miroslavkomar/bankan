@@ -29,20 +29,6 @@ function create(priority) {
   }
 }
 
-// Method to remove a priority from a file
-function remove(priorityId) {
-  try {
-    const filePath = path.join(priorityFolderPath, `${priorityId}.json`);
-    fs.unlinkSync(filePath);
-    return {};
-  } catch (error) {
-    if (error.code === "ENOENT") {
-      return {};
-    }
-    throw { code: "failedToRemovePriority", note: error.note };
-  }
-}
-
 // Method to list task priorities in a folder
 function list() {
   try {
@@ -59,6 +45,5 @@ function list() {
 module.exports = {
   create,
   get,
-  remove,
   list,
 };
