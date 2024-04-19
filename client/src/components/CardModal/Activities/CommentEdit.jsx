@@ -1,12 +1,12 @@
-import { dequal } from 'dequal';
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import {dequal} from 'dequal';
+import React, {useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
-import { Button, Form, TextArea } from 'semantic-ui-react';
+import {Button, Form, TextArea} from 'semantic-ui-react';
 
-import { useForm } from '../../../hooks';
+import {useForm} from '../../../hooks';
 
-import styles from './CommentEdit.css';
+import styles from './CommentEdit.module.css';
 
 const CommentEdit = React.forwardRef(({ children, defaultData, onUpdate }, ref) => {
   const [isOpened, setIsOpened] = useState(false);

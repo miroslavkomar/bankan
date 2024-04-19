@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 
-import './Markdown.module.scss'; // FIXME: import as styles?
+import './Markdown.css'; // FIXME: import as styles?
 
 const ABSOLUTE_URL_REGEX = /^(?:https?:)?\/\//i;
 

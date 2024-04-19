@@ -1,17 +1,17 @@
 import pick from 'lodash/pick';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import PropTypes from 'prop-types';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Button } from 'semantic-ui-react';
-import { Input, Popup } from '../../lib/custom-ui';
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+import {Button} from 'semantic-ui-react';
+import {Input, Popup} from '../../lib/custom-ui';
 
-import { useField, useSteps } from '../../hooks';
+import {useField, useSteps} from '../../hooks';
 import DroppableTypes from '../../constants/DroppableTypes';
 import AddStep from './AddStep';
 import EditStep from './EditStep';
 import Item from './Item';
 
-import './LabelsStep.css';
+import styles from './LabelsStep.module.css';
 
 const StepTypes = {
   ADD: 'ADD',
@@ -163,7 +163,7 @@ const LabelsStep = React.memo(
                   <div
                     {...droppableProps} // eslint-disable-line react/jsx-props-no-spreading
                     ref={innerRef}
-                    className="items"
+                    className={styles.items}
                   >
                     {filteredItems.map((item, index) => (
                       <Item
@@ -189,7 +189,7 @@ const LabelsStep = React.memo(
                   <div
                     {...droppableProps} // eslint-disable-line react/jsx-props-no-spreading
                     ref={innerRef}
-                    className="droppableHack"
+                    className={styles.droppableHack}
                   >
                     {placeholder}
                   </div>
@@ -201,7 +201,7 @@ const LabelsStep = React.memo(
             <Button
               fluid
               content={('action.createNewLabel')}
-              className="addButton"
+              className={styles.addButton}
               onClick={handleAddClick}
             />
           )}

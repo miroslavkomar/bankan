@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Form } from 'semantic-ui-react';
-import { Popup } from '../../lib/custom-ui';
+import {Button, Form} from 'semantic-ui-react';
+import {Popup} from '../../lib/custom-ui';
 
-import { useForm } from '../../hooks';
+import {useForm} from '../../hooks';
 import LabelColors from '../../constants/LabelColors';
 import Editor from './Editor';
 
-import './AddStep.css';
+import styles from './AddStep.module.css';
 
 const AddStep = React.memo(({ defaultData, onCreate, onBack }) => {
 
@@ -37,7 +37,7 @@ const AddStep = React.memo(({ defaultData, onCreate, onBack }) => {
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
           <Editor data={data} onFieldChange={handleFieldChange} />
-          <Button positive content={('action.createLabel')} className="submitButton" />
+          <Button positive content={('action.createLabel')} className={styles.submitButton} />
         </Form>
       </Popup.Content>
     </>

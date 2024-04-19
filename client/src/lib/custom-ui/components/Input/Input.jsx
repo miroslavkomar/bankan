@@ -1,4 +1,4 @@
-import { Input as SemanticUIInput } from 'semantic-ui-react';
+import {Input as SemanticUIInput} from 'semantic-ui-react';
 
 import InputMask from './InputMask';
 

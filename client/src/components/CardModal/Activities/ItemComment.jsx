@@ -1,16 +1,16 @@
-import React, { useCallback, useRef } from 'react';
+import React, {useCallback, useRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Comment } from 'semantic-ui-react';
-import { usePopup } from '../../../lib/popup';
-import { Markdown } from '../../../lib/custom-ui';
+import {Comment} from 'semantic-ui-react';
+import {usePopup} from '../../../lib/popup';
+import {Markdown} from '../../../lib/custom-ui';
 
 import getDateFormat from '../../../utils/get-date-format';
 import CommentEdit from './CommentEdit';
 import User from '../../User';
 import DeleteStep from '../../DeleteStep';
 
-import styles from './ItemComment.css';
+import styles from './ItemComment.module.css';
 
 const ItemComment = React.memo(
   ({ data, createdAt, isPersisted, user, canEdit, onUpdate, onDelete }) => {

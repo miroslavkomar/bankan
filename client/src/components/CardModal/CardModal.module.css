@@ -1,5 +1,4 @@
-:global(#app) {
-  .actionButton {
+.actionButton {
     background: #ebeef0;
     box-shadow: 0 1px 0 0 rgba(9, 30, 66, 0.13);
     color: #444;
@@ -12,23 +11,23 @@
     white-space: nowrap;
 
     &:hover {
-      background: #dfe3e6;
-      box-shadow: 0 1px 0 0 rgba(9, 30, 66, 0.25);
-      color: #4c4c4c;
+        background: #dfe3e6;
+        box-shadow: 0 1px 0 0 rgba(9, 30, 66, 0.25);
+        color: #4c4c4c;
     }
-  }
+}
 
-  .actionIcon {
+.actionIcon {
     color: #17394d;
     display: inline;
     margin-right: 8px;
-  }
+}
 
-  .actions {
+.actions {
     margin-bottom: 24px;
-  }
+}
 
-  .actionsTitle {
+.actionsTitle {
     color: #8c8c8c;
     font-size: 12px;
     font-weight: 500;
@@ -37,39 +36,39 @@
     text-transform: uppercase;
     line-height: 20px;
     margin-bottom: -4px;
-  }
+}
 
-  .addAttachment {
+.addAttachment {
     margin: 0 -4.3px;
     text-decoration: none;
-  }
+}
 
-  .attachment {
+.attachment {
     display: inline-block;
     margin: 0 4px 4px 0;
     max-width: 100%;
-  }
+}
 
-  .attachments {
+.attachments {
     display: inline-block;
     margin: 0 8px 8px 0;
     max-width: 100%;
     vertical-align: top;
-  }
+}
 
-  .contentModule {
+.contentModule {
     margin-bottom: 24px;
-  }
+}
 
-  .contentPadding {
+.contentPadding {
     padding: 8px 8px 0 16px;
-  }
+}
 
-  .cursorPointer {
+.cursorPointer {
     cursor: pointer;
-  }
+}
 
-  .dueDate {
+.dueDate {
     background: rgba(9, 30, 66, 0.04);
     border: none;
     border-radius: 3px;
@@ -84,12 +83,12 @@
     vertical-align: top;
 
     &:hover {
-      background: rgba(9, 30, 66, 0.08);
-      color: #17394d;
+        background: rgba(9, 30, 66, 0.08);
+        color: #17394d;
     }
-  }
+}
 
-  .descriptionButton {
+.descriptionButton {
     background: rgba(9, 30, 66, 0.04);
     border: none;
     border-radius: 3px;
@@ -105,17 +104,17 @@
     width: 100%;
 
     &:hover {
-      background: rgba(9, 30, 66, 0.08);
-      color: #092d42;
+        background: rgba(9, 30, 66, 0.08);
+        color: #092d42;
     }
-  }
+}
 
-  .descriptionButtonText {
+.descriptionButtonText {
     position: absolute;
     top: 12px;
-  }
+}
 
-  .descriptionText {
+.descriptionText {
     background: transparent;
     border: none;
     color: #17394d;
@@ -125,48 +124,48 @@
     padding: 0;
     text-align: left;
     width: 100%;
-  }
+}
 
-  .grid {
+.grid {
     background: #f5f6f7;
     margin: 0;
-  }
+}
 
-  .headerPadding {
+.headerPadding {
     padding: 0;
-  }
+}
 
-  .headerTitle {
+.headerTitle {
     color: #17394d;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
-  }
+}
 
-  .headerTitleWrapper {
+.headerTitleWrapper {
     margin: 4px 0;
     padding: 6px 0 0;
-  }
+}
 
-  .headerWrapper {
+.headerWrapper {
     margin: 12px 48px 12px 56px;
     position: relative;
-  }
+}
 
-  .modalPadding {
+.modalPadding {
     padding: 0px;
-  }
+}
 
-  .moduleHeader {
+.moduleHeader {
     color: #17394d;
     font-size: 16px;
     font-weight: bold;
     line-height: 20px;
     margin: 0 0 4px;
     padding: 8px 0;
-  }
+}
 
-  .moduleIcon {
+.moduleIcon {
     color: #17394d;
     font-size: 17px;
     height: 32px;
@@ -176,18 +175,18 @@
     position: absolute;
     top: 2px;
     width: 32px;
-  }
+}
 
-  .moduleWrapper {
+.moduleWrapper {
     margin: 0 0 0 40px;
     position: relative;
-  }
+}
 
-  .sidebarPadding {
+.sidebarPadding {
     padding: 8px 16px 0 8px;
-  }
+}
 
-  .text {
+.text {
     color: #6b808c;
     font-size: 12px;
     font-weight: bold;
@@ -195,15 +194,15 @@
     line-height: 20px;
     margin: 0 8px 4px 0;
     text-transform: uppercase;
-  }
-
-  .wrapper {
-    width: 880px;
-  }
-
-  @media (max-width: 926px) {
-    .wrapper {
-      width: 95%;
-    }
-  }
 }
+
+.wrapper {
+    width: 880px;
+}
+
+@media (max-width: 926px) {
+    .wrapper {
+        width: 95%;
+    }
+}
+

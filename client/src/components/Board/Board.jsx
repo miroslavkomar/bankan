@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import ColumnContainer from "../../containers/ColumnContainer";
-import CardModalContainer from "../../containers/CardModalContainer";
+import CardModal from "../CardModal";
 
 function Board({isCardModalOpened}) {
     return (
@@ -10,7 +10,7 @@ function Board({isCardModalOpened}) {
                 <h1>Kanban Board</h1>
                 <ColumnContainer/>
             </section>
-            {isCardModalOpened && <CardModalContainer/>}
+            {isCardModalOpened && <CardModal/>}
         </>
     );
 }

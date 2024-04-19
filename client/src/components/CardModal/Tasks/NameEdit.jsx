@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
-import { Button, Form, TextArea } from 'semantic-ui-react';
+import {Button, Form, TextArea} from 'semantic-ui-react';
 
-import { useField } from '../../../hooks';
+import {useField} from '../../../hooks';
 
-import './NameEdit.css';
+import './NameEdit.module.css';
 
 const NameEdit = React.forwardRef(({ children, defaultValue, onUpdate }, ref) => {
   const [isOpened, setIsOpened] = useState(false);

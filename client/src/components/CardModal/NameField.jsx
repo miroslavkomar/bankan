@@ -1,12 +1,12 @@
-import React, { useCallback, useRef } from 'react';
+import React, {useCallback, useRef} from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
-import { TextArea } from 'semantic-ui-react';
+import {TextArea} from 'semantic-ui-react';
 
-import { useDidUpdate, usePrevious } from '../../lib/hooks';
-import { useField } from '../../hooks';
+import {useDidUpdate, usePrevious} from '../../lib/hooks';
+import {useField} from '../../hooks';
 
-import'./NameField.css';
+import './NameField.module.css';
 
 const NameField = React.memo(({ defaultValue, onUpdate }) => {
   const prevDefaultValue = usePrevious(defaultValue);

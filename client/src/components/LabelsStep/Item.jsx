@@ -1,14 +1,14 @@
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Draggable } from 'react-beautiful-dnd';
-import { Button } from 'semantic-ui-react';
+import {Draggable} from 'react-beautiful-dnd';
+import {Button} from 'semantic-ui-react';
 
-import './Item.css';
-import '../../styles.css';
+import styles from './Item.module.css';
+import globalStyles from '../../styles.module.css';
 
 const Item = React.memo(
   ({ id, index, name, color, isPersisted, isActive, canEdit, onSelect, onDeselect, onEdit }) => {
@@ -27,15 +27,15 @@ const Item = React.memo(
         {({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => {
           const contentNode = (
             // eslint-disable-next-line react/jsx-props-no-spreading
-            <div {...draggableProps} ref={innerRef} className="wrapper">
+            <div {...draggableProps} ref={innerRef} className={styles.wrapper}>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,
                                            jsx-a11y/no-static-element-interactions */}
               <span
                 {...dragHandleProps} // eslint-disable-line react/jsx-props-no-spreading
                 className={classNames(
-                  "name",
-                  isActive && "nameActive",
-                  `background${upperFirst(camelCase(color))}`,
+                    styles.name,
+                    isActive && styles.nameActive,
+                    globalStyles[`background${upperFirst(camelCase(color))}`],
                 )}
                 onClick={handleToggleClick}
               >
@@ -47,7 +47,7 @@ const Item = React.memo(
                   size="small"
                   floated="right"
                   disabled={!isPersisted}
-                  className="editButton"
+                  className={styles.editButton}
                   onClick={onEdit}
                 />
               )}

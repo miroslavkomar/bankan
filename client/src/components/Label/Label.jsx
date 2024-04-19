@@ -6,7 +6,8 @@ import classNames from 'classnames';
 
 import LabelColors from '../../constants/LabelColors';
 
-import '../../styles.css';
+import styles from './Label.module.css';
+import globalStyles from '../../styles.module.css';
 
 const SIZES = {
   TINY: 'tiny',
@@ -24,12 +25,12 @@ const Label = React.memo(({ name, fontColor, color, size, isDisabled, onClick })
     <div
       title={name}
       className={classNames(
-        "wrapper",
-        !name && "wrapperNameless",
-        `wrapper${upperFirst(size)}`,
-        onClick && "wrapperHoverable",
-        `font${upperFirst(fontColor)}`,
-        `background${upperFirst(camelCase(color))}`,
+         styles.wrapper,
+        !name && styles.wrapperNameless,
+        styles[`wrapper${upperFirst(size)}`],
+        onClick && styles.wrapperHoverable,
+        globalStyles[`font${upperFirst(fontColor)}`],
+        globalStyles[`background${upperFirst(camelCase(color))}`],
       )}
     >
       {name || '\u00A0'}

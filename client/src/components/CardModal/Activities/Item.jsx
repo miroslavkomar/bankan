@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Trans } from 'react-i18next';
-import { Comment } from 'semantic-ui-react';
+import {Trans} from 'react-i18next';
+import {Comment} from 'semantic-ui-react';
 
 import getDateFormat from '../../../utils/get-date-format';
-import { ActivityTypes } from '../../../constants/Enums';
+import {ActivityTypes} from '../../../constants/Enums';
 import ItemComment from './ItemComment';
 import User from '../../User';
 
-import styles from './Item.css';
+import styles from './Item.module.css';
 
 const Item = React.memo(({ type, data, createdAt, user }) => {
 

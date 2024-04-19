@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Popup as SemanticUIPopup } from 'semantic-ui-react';
+import {Button, Popup as SemanticUIPopup} from 'semantic-ui-react';
 
 import styles from './PopupHeader.module.css';
 

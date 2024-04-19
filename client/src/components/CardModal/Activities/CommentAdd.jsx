@@ -1,12 +1,12 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
-import { Button, Form, TextArea } from 'semantic-ui-react';
-import { useDidUpdate, useToggle } from '../../../lib/hooks';
+import {Button, Form, TextArea} from 'semantic-ui-react';
+import {useDidUpdate, useToggle} from '../../../lib/hooks';
 
-import { useClosableForm, useForm } from '../../../hooks';
+import {useClosableForm, useForm} from '../../../hooks';
 
-import styles from './CommentAdd.css';
+import styles from './CommentAdd.module.css';
 
 const DEFAULT_DATA = {
   text: '',

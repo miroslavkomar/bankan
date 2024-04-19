@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import { Menu } from 'semantic-ui-react';
-import { Popup } from '../../../lib/custom-ui';
+import {Menu} from 'semantic-ui-react';
+import {Popup} from '../../../lib/custom-ui';
 
-import { useSteps } from '../../../hooks';
+import {useSteps} from '../../../hooks';
 import DeleteStep from '../../DeleteStep';
 
-import styles from './ActionsStep.css';
+import styles from './ActionsStep.module.css';
 
 const StepTypes = {
   DELETE: 'DELETE',

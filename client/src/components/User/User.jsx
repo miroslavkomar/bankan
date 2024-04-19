@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './User.css';
+import styles from './User.module.css';
 
 const SIZES = {
   TINY: 'tiny',
@@ -39,21 +39,21 @@ const User = React.memo(({ name, avatarUrl, size, isDisabled, onClick }) => {
     <span
       title={name}
       className={classNames(
-        "wrapper",
-        `wrapper${upperFirst(size)}`,
-        onClick && "wrapperHoverable",
-        !avatarUrl && `background${upperFirst(camelCase(getColor(name)))}`,
+          styles.wrapper,
+          styles[`wrapper${upperFirst(size)}`],
+          onClick && styles.wrapperHoverable,
+          !avatarUrl && styles[`background${upperFirst(camelCase(getColor(name)))}`],
       )}
       style={{
         background: avatarUrl && `url("${avatarUrl}") center / cover`,
       }}
     >
-      {!avatarUrl && <span className="initials">{initials(name)}</span>}
+      {!avatarUrl && <span className={styles.initials}>{initials(name)}</span>}
     </span>
   );
 
   return onClick ? (
-    <button type="button" disabled={isDisabled} className="button" onClick={onClick}>
+    <button type="button" disabled={isDisabled} className={styles.button} onClick={onClick}>
       {contentNode}
     </button>
   ) : (

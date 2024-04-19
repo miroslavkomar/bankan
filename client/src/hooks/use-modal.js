@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import {useCallback, useState} from 'react';
 
 export default (initialParams) => {
   const [modal, setModal] = useState(() => initialParams);

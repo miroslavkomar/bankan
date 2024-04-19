@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
-import { Button, Form, TextArea } from 'semantic-ui-react';
-import { useDidUpdate, useToggle } from '../../../lib/hooks';
+import {Button, Form, TextArea} from 'semantic-ui-react';
+import {useDidUpdate, useToggle} from '../../../lib/hooks';
 
-import { useClosableForm, useForm } from '../../../hooks';
+import {useClosableForm, useForm} from '../../../hooks';
 
-import styles from './Add.css';
+import styles from './Add.module.css';
 
 const DEFAULT_DATA = {
   name: '',

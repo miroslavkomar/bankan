@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
-import { Button, Form } from 'semantic-ui-react';
-import { useDidUpdate, useToggle } from '../../lib/hooks';
-import { Input, Popup } from '../../lib/custom-ui';
+import {Button, Form} from 'semantic-ui-react';
+import {useDidUpdate, useToggle} from '../../lib/hooks';
+import {Input, Popup} from '../../lib/custom-ui';
 
-import { useForm } from '../../hooks';
+import {useForm} from '../../hooks';
 
-import './DueDateEditStep.css';
+import './DueDateEditStep.module.css';
 
 const DueDateEditStep = React.memo(({ defaultValue, onUpdate, onBack, onClose }) => {
   const [data, handleFieldChange, setData] = useForm(() => {

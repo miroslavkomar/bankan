@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
-import { Popup } from '../../lib/custom-ui';
+import {Button} from 'semantic-ui-react';
+import {Popup} from '../../lib/custom-ui';
 
-import './DeleteStep.css';
+import './DeleteStep.module.css';
 
 const DeleteStep = React.memo(({ title, content, buttonContent, onConfirm, onBack }) => {
   return (

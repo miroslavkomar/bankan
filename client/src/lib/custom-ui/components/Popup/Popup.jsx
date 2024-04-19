@@ -1,4 +1,4 @@
-import { Popup as SemanticUIPopup } from 'semantic-ui-react';
+import {Popup as SemanticUIPopup} from 'semantic-ui-react';
 
 import PopupHeader from './PopupHeader';
 

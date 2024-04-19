@@ -1,7 +1,7 @@
-import { createSelector } from 'redux-orm';
+import {createSelector} from 'redux-orm';
 
 import orm from '../orm';
-import { isLocalId } from '../utils/local-id';
+import {isLocalId} from '../utils/local-id';
 
 export const makeSelectListById = () =>
   createSelector(

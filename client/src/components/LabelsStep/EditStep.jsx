@@ -1,15 +1,15 @@
-import { dequal } from 'dequal';
-import React, { useCallback } from 'react';
+import {dequal} from 'dequal';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Form } from 'semantic-ui-react';
-import { Popup } from '../../lib/custom-ui';
+import {Button, Form} from 'semantic-ui-react';
+import {Popup} from '../../lib/custom-ui';
 
-import { useForm, useSteps } from '../../hooks';
+import {useForm, useSteps} from '../../hooks';
 import LabelColors from '../../constants/LabelColors';
 import Editor from './Editor';
 import DeleteStep from '../DeleteStep';
 
-import './EditStep.css';
+import styles from './EditStep.module.css';
 
 const StepTypes = {
   DELETE: 'DELETE',
@@ -68,7 +68,7 @@ const EditStep = React.memo(({ defaultData, onUpdate, onDelete, onBack }) => {
         </Form>
         <Button
           content={('action.delete')}
-          className="deleteButton"
+          className={styles.deleteButton}
           onClick={handleDeleteClick}
         />
       </Popup.Content>

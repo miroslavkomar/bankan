@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import {useCallback, useState} from 'react';
 
 const createStep = (type, params = {}) => {
   if (!type) {

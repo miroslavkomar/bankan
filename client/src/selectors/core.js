@@ -1,4 +1,4 @@
-import { createSelector } from 'redux-orm';
+import {createSelector} from 'redux-orm';
 import isUndefined from 'lodash/isUndefined';
 
 import orm from '../orm';

@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Comment, Icon, Loader, Visibility } from 'semantic-ui-react';
+import {Button, Comment, Icon, Loader, Visibility} from 'semantic-ui-react';
 
-import { ActivityTypes } from '../../../constants/Enums';
+import {ActivityTypes} from '../../../constants/Enums';
 import CommentAdd from './CommentAdd';
 import Item from './Item';
 
-import styles from './Activities.css';
+import styles from './Activities.module.css';
 
 const Activities = React.memo(
   ({

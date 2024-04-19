@@ -1,7 +1,7 @@
 import React from 'react';
 import Column from '../components/Column/Column'
 
-import { ColumnContext } from "../ColumnContext";
+import {ColumnContext} from "../ColumnContext";
 
 function ColumnContainer() {
 

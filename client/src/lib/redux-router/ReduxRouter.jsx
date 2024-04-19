@@ -1,9 +1,9 @@
-import React, { useLayoutEffect } from 'react';
+import React, {useLayoutEffect} from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Router } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {Router} from 'react-router-dom';
 
-import { handleLocationChange } from './actions';
+import {handleLocationChange} from './actions';
 
 function ReduxRouter({ children, history, selector, basename }) {
   const state = useSelector(selector);

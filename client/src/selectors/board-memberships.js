@@ -1,4 +1,4 @@
-import { createSelector } from 'redux-orm';
+import {createSelector} from 'redux-orm';
 
 import orm from '../orm';
 

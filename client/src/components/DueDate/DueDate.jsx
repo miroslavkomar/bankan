@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 
-import './DueDate.css';
+import styles from './DueDate.module.css';
 
 const SIZES = {
   TINY: 'tiny',
@@ -17,8 +17,8 @@ function DueDate ({value, size}) {
   return (
       <span
           className={classNames(
-              "wrapper",
-              `wrapper${upperFirst(size)}`
+              styles.wrapper,
+              styles[`wrapper${upperFirst(size)}`]
           )}
       >
       {value.getDate()}.{value.getMonth() + 1}.{value.getFullYear()}

@@ -1,4 +1,4 @@
-import { attr } from 'redux-orm';
+import {attr} from 'redux-orm';
 
 import BaseModel from './BaseModel';
 import ActionTypes from '../constants/ActionTypes';

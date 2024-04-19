@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import {Link} from 'react-router-dom';
 
 import Paths from '../../constants/Paths';
 import Label from '../Label';
 import DueDate from '../DueDate';
 
-import './Card.css';
+import styles from './Card.module.css';
 
 function Card ({id,
                index,
@@ -25,22 +26,23 @@ function Card ({id,
 
     const contentNode = (
         <>
-            {coverUrl && <img src={coverUrl} alt="" className="cover" />}
-            <div className="details">
+            {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />}
+            <div className={styles.details}>
                 {!!labels && (
-                    <span className="labels">
+                    <span className={styles.labels}>
               {labels.map((label) => (
                   <span
                       key={label.id}
-                      className="attachment attachmentLeft">
+                      className={classNames(styles.attachment, styles.attachmentLeft)}
+                  >
                   <Label name={label.name} fontColor={label.fontColor} color={label.color} size="small"/>
                   </span>
               ))}
             </span>)}
-                <div className="name">{name}</div>
-                <span className="attachments">
+                <div className={styles.name}>{name}</div>
+                <span className={styles.attachments}>
                     {dueDate && (
-                        <span className="attachment attachmentLeft">
+                        <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                             <DueDate value={dueDate}/>
                         </span>
                     )}
@@ -51,19 +53,19 @@ function Card ({id,
 
     return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <div className="wrapper">
-            <div className="card">
+    <div className={styles.wrapper}>
+            <div className={styles.card}>
                 {isPersisted ? (
                     <>
                         <Link
                             to={Paths.CARDS.replace(':id', id)}
-                            className="content"
+                            className={styles.content}
                             onClick={handleClick}
                         >{contentNode}
                         </Link>
                     </>
                 ) : (
-                    <span className="content">{contentNode}</span>
+                    <span className={styles.content}>{contentNode}</span>
                 )}
             </div>
     </div>

@@ -130,7 +130,7 @@ input {
   inset -7px -7px 15px #a5b7fd;
 }
 
-.form__submit {
+.create__button {
   width: 110px;
   background-color: #b194fb;
   border: 2px solid #765cb6;
@@ -138,9 +138,13 @@ input {
   cursor: pointer;
   box-shadow: none;
   font-weight: bold;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  opacity: 70%;
 }
 
-.form__submit:hover, input:hover {
+.create__button:hover, input:hover {
   box-shadow: 4px 4px 0px -1px rgba(66, 68, 90, 1);
 }
 

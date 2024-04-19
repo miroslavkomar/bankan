@@ -1,11 +1,11 @@
-import React, { useMemo, useCallback } from 'react';
+import React, {useCallback, useMemo} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Dropdown, Form } from 'semantic-ui-react';
-import { Popup } from '../../lib/custom-ui';
+import {Button, Dropdown, Form} from 'semantic-ui-react';
+import {Popup} from '../../lib/custom-ui';
 
-import { useForm } from '../../hooks';
+import {useForm} from '../../hooks';
 
-import './CardMoveStep.css';
+import './CardMoveStep.module.css';
 
 const CardMoveStep = React.memo(
   ({ projectsToLists, defaultPath, onMove, onTransfer, onBoardFetch, onBack, onClose }) => {

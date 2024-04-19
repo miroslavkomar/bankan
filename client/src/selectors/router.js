@@ -1,8 +1,8 @@
-import { createSelector as createReselectSelector } from 'reselect';
-import { createSelector as createReduxOrmSelector } from 'redux-orm';
+import {createSelector as createReselectSelector} from 'reselect';
+import {createSelector as createReduxOrmSelector} from 'redux-orm';
 
 import orm from '../orm';
-import { selectCurrentUserId } from './users';
+import {selectCurrentUserId} from './users';
 import matchPaths from '../utils/match-paths';
 import Paths from '../constants/Paths';
 

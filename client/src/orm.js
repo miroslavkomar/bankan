@@ -1,19 +1,6 @@
-import { ORM } from 'redux-orm';
+import {ORM} from 'redux-orm';
 
-import {
-  Activity,
-  Attachment,
-  Board,
-  BoardMembership,
-  Card,
-  Label,
-  List,
-  Notification,
-  Project,
-  ProjectManager,
-  Task,
-  User,
-} from './models';
+import {Activity, Attachment, Board, BoardMembership, Card, Label, List, Notification, Project, ProjectManager, Task, User,} from './models';
 
 const orm = new ORM({
   stateSelector: (state) => state.orm,

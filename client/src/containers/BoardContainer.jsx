@@ -1,9 +1,9 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 import selectors from '../selectors';
 import entryActions from '../entry-actions';
-import Board from '../components/Board';
+import Board from '../components/Board/Board';
 
 const mapStateToProps = (state) => {
   const { cardId } = selectors.selectPath(state);
@@ -23,4 +23,4 @@ const mapDispatchToProps = (dispatch) =>
     dispatch,
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board({true}));

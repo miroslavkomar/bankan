@@ -1,9 +1,9 @@
-import { attr, fk, many, oneToOne } from 'redux-orm';
+import {attr, fk, many, oneToOne} from 'redux-orm';
 
 import BaseModel from './BaseModel';
 import ActionTypes from '../constants/ActionTypes';
 import Config from '../constants/Config';
-import { ActivityTypes } from '../constants/Enums';
+import {ActivityTypes} from '../constants/Enums';
 
 export default class extends BaseModel {
   static modelName = 'Card';

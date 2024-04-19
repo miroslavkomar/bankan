@@ -1,6 +1,6 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import './styles.css';
+import './styles.module.css';
 import Board from './components/Board/Board';
 import Form from './components/Board/Form';
 
@@ -25,7 +25,7 @@ function App() {
       <>
         <Form getNewTask={getNewTask}/>
         <ColumnProvider value={{columns}}>
-            <Board/>
+            <Board isCardModalOpened={true}/>
         </ColumnProvider>
       </>
   );

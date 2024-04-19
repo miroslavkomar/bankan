@@ -1,9 +1,10 @@
-import React, { useReducer } from 'react';
+import React, {useReducer} from 'react';
 
 import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
 
 function Form (props) {
-    
+
     const init = {dueDateFrom:'', dueDateTo:''}
 
     const reducer = (state, action) => {
@@ -28,10 +29,12 @@ function Form (props) {
             <div className='form__container'>
                 <h1>BanKan</h1>
                 <div>
-                    <label> <input name='dueDateFrom' value={dueDateFrom} type='date' onChange={e => dispatch({type: 'change', element: e.target})} placeholder='due date from' required/></label>
-                    <label> <input name='dueDateTo' value={dueDateTo} type='date' onChange={e => dispatch({type: 'change', element: e.target})} placeholder='due date from to' required pattern='^[a-zA-Z –-]+$'/></label>
+                    <label> <input name='dueDateFrom' value={dueDateFrom} type='date' onChange={e => dispatch({type: 'change', element: e.target})}
+                                   placeholder='due date from' required/></label>
+                    <label> <input name='dueDateTo' value={dueDateTo} type='date' onChange={e => dispatch({type: 'change', element: e.target})}
+                                   placeholder='due date from to' required/></label>
                 </div>
-                <input type="submit" value="Plan Task" className='form__submit'/>
+                <button type="button" className='create__button'>Plan Task</button>
             </div>
         </form>
     )

@@ -1,9 +1,9 @@
-import React, { useCallback, useRef } from 'react';
+import React, {useCallback, useRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Button, Grid, Icon, Modal } from 'semantic-ui-react';
-import { usePopup } from '../../lib/popup';
-import { Markdown } from '../../lib/custom-ui';
+import {Button, Grid, Icon, Modal} from 'semantic-ui-react';
+import {usePopup} from '../../lib/popup';
+import {Markdown} from '../../lib/custom-ui';
 
 import NameField from './NameField';
 import DescriptionEdit from './DescriptionEdit';
@@ -15,10 +15,9 @@ import LabelsStep from '../LabelsStep';
 import DueDateEditStep from '../DueDateEditStep';
 import DeleteStep from '../DeleteStep';
 
-import './CardModal.css';
+import styles from './CardModal.module.css';
 
-const CardModal = React.memo(
-  ({
+function CardModal({
     name,
     description,
     dueDate,
@@ -57,49 +56,49 @@ const CardModal = React.memo(
     onCommentActivityUpdate,
     onCommentActivityDelete,
     onClose,
-  }) => {
+  }) {
     const isGalleryOpened = useRef(false);
 
     const handleNameUpdate = useCallback(
-      (newName) => {
-        onUpdate({
-          name: newName,
-        });
-      },
-      [onUpdate],
+        (newName) => {
+            onUpdate({
+                name: newName,
+            });
+        },
+        [onUpdate],
     );
 
     const handleDescriptionUpdate = useCallback(
-      (newDescription) => {
-        onUpdate({
-          description: newDescription,
-        });
-      },
-      [onUpdate],
+        (newDescription) => {
+            onUpdate({
+                description: newDescription,
+            });
+        },
+        [onUpdate],
     );
 
     const handleDueDateUpdate = useCallback(
-      (newDueDate) => {
-        onUpdate({
-          dueDate: newDueDate,
-        });
-      },
-      [onUpdate],
+        (newDueDate) => {
+            onUpdate({
+                dueDate: newDueDate,
+            });
+        },
+        [onUpdate],
     );
 
 
     const handleToggleSubscriptionClick = useCallback(() => {
-      onUpdate({
-        isSubscribed: !isSubscribed,
-      });
+        onUpdate({
+            isSubscribed: !isSubscribed,
+        });
     }, [isSubscribed, onUpdate]);
 
     const handleClose = useCallback(() => {
-      if (isGalleryOpened.current) {
-        return;
-      }
+        if (isGalleryOpened.current) {
+            return;
+        }
 
-      onClose();
+        onClose();
     }, [onClose]);
 
     const LabelsPopup = usePopup(LabelsStep);
@@ -110,224 +109,224 @@ const CardModal = React.memo(
     const labelIds = labels.map((label) => label.id);
 
     const contentNode = (
-      <Grid className="grid">
-        <Grid.Row className="headerPadding">
-          <Grid.Column width={16} className="headerPadding">
-            <div className="headerWrapper">
-              <Icon name="list alternate outline" className="moduleIcon" />
-              <div className="headerTitleWrapper">
-                {canEdit ? (
-                  <NameField defaultValue={name} onUpdate={handleNameUpdate} />
-                ) : (
-                  <div className="headerTitle">{name}</div>
-                )}
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row className="modalPadding">
-          <Grid.Column width={canEdit ? 12 : 16} className="contentPadding">
-                {labels.length > 0 && (
-                  <div className="attachments">
-                    <div className="text">
-                      {('common.labels', {
-                        context: 'title',
-                      })}
+        <Grid className={styles.grid}>
+            <Grid.Row className={styles.headerPadding}>
+                <Grid.Column width={16} className={styles.headerPadding}>
+                    <div className={styles.headerWrapper}>
+                        <Icon name="list alternate outline" className={styles.moduleIcon}/>
+                        <div className={styles.headerTitleWrapper}>
+                            {canEdit ? (
+                                <NameField defaultValue={name} onUpdate={handleNameUpdate}/>
+                            ) : (
+                                <div className={styles.headerTitle}>{name}</div>
+                            )}
+                        </div>
                     </div>
-                    {labels.map((label) => (
-                      <span key={label.id} className="attachment">
+                </Grid.Column>
+            </Grid.Row>
+            <Grid.Row className={styles.modalPadding}>
+                <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
+                    {labels.length > 0 && (
+                        <div className={styles.attachments}>
+                            <div className={styles.text}>
+                                {('common.labels', {
+                                    context: 'title',
+                                })}
+                            </div>
+                            {labels.map((label) => (
+                                <span key={label.id} className={styles.attachment}>
                         {canEdit ? (
-                          <LabelsPopup
-                            key={label.id}
-                            items={allLabels}
-                            currentIds={labelIds}
-                            onSelect={onLabelAdd}
-                            onDeselect={onLabelRemove}
-                            onCreate={onLabelCreate}
-                            onUpdate={onLabelUpdate}
-                            onMove={onLabelMove}
-                            onDelete={onLabelDelete}
-                          >
-                            <Label name={label.name} color={label.color} />
-                          </LabelsPopup>
+                            <LabelsPopup
+                                key={label.id}
+                                items={allLabels}
+                                currentIds={labelIds}
+                                onSelect={onLabelAdd}
+                                onDeselect={onLabelRemove}
+                                onCreate={onLabelCreate}
+                                onUpdate={onLabelUpdate}
+                                onMove={onLabelMove}
+                                onDelete={onLabelDelete}
+                            >
+                                <Label name={label.name} color={label.color}/>
+                            </LabelsPopup>
                         ) : (
-                          <Label name={label.name} color={label.color} />
+                            <Label name={label.name} color={label.color}/>
                         )}
                       </span>
-                    ))}
-                    {canEdit && (
-                      <LabelsPopup
-                        items={allLabels}
-                        currentIds={labelIds}
-                        onSelect={onLabelAdd}
-                        onDeselect={onLabelRemove}
-                        onCreate={onLabelCreate}
-                        onUpdate={onLabelUpdate}
-                        onMove={onLabelMove}
-                        onDelete={onLabelDelete}
-                      >
-                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                        <button
-                          type="button"
-                          className={classNames("attachment", "dueDate")}
-                        >
-                          <Icon name="add" size="small" className="addAttachment" />
-                        </button>
-                      </LabelsPopup>
+                            ))}
+                            {canEdit && (
+                                <LabelsPopup
+                                    items={allLabels}
+                                    currentIds={labelIds}
+                                    onSelect={onLabelAdd}
+                                    onDeselect={onLabelRemove}
+                                    onCreate={onLabelCreate}
+                                    onUpdate={onLabelUpdate}
+                                    onMove={onLabelMove}
+                                    onDelete={onLabelDelete}
+                                >
+                                    {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                                    <button
+                                        type="button"
+                                        className={classNames(styles.attachment, styles.dueDate)}
+                                    >
+                                        <Icon name="add" size="small" className={styles.addAttachment}/>
+                                    </button>
+                                </LabelsPopup>
+                            )}
+                        </div>
                     )}
-                  </div>
-                )}
-                {dueDate && (
-                  <div className="attachments">
-                    <div className="text">
-                      {('common.dueDate', {
-                        context: 'title',
-                      })}
-                    </div>
-                    <span className="attachment">
+                    {dueDate && (
+                        <div className={styles.attachments}>
+                            <div className={styles.text}>
+                                {('common.dueDate', {
+                                    context: 'title',
+                                })}
+                            </div>
+                            <span className={styles.attachment}>
                       {canEdit ? (
-                        <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
-                          <DueDate value={dueDate} />
-                        </DueDateEditPopup>
+                          <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
+                              <DueDate value={dueDate}/>
+                          </DueDateEditPopup>
                       ) : (
-                        <DueDate value={dueDate} />
+                          <DueDate value={dueDate}/>
                       )}
                     </span>
-                  </div>
-                )}
-            {(description || canEdit) && (
-              <div className="contentModule">
-                <div className="moduleWrapper">
-                  <Icon name="align justify" className="moduleIcon" />
-                  <div className="moduleHeader">{('common.description')}</div>
-                  {canEdit ? (
-                    <DescriptionEdit defaultValue={description} onUpdate={handleDescriptionUpdate}>
-                      {description ? (
-                        <button
-                          type="button"
-                          className={classNames("descriptionText", "cursorPointer")}
-                        >
-                          <Markdown linkStopPropagation linkTarget="_blank">
-                            {description}
-                          </Markdown>
-                        </button>
-                      ) : (
-                        <button type="button" className="descriptionButton">
-                          <span className="descriptionButtonText">
+                        </div>
+                    )}
+                    {(description || canEdit) && (
+                        <div className={styles.contentModule}>
+                            <div className={styles.moduleWrapper}>
+                                <Icon name="align justify" className={styles.moduleIcon}/>
+                                <div className={styles.moduleHeader}>{('common.description')}</div>
+                                {canEdit ? (
+                                    <DescriptionEdit defaultValue={description} onUpdate={handleDescriptionUpdate}>
+                                        {description ? (
+                                            <button
+                                                type="button"
+                                                className={classNames(styles.descriptionText, styles.cursorPointer)}
+                                            >
+                                                <Markdown linkStopPropagation linkTarget="_blank">
+                                                    {description}
+                                                </Markdown>
+                                            </button>
+                                        ) : (
+                                            <button type="button" className={styles.descriptionButton}>
+                          <span className={styles.descriptionButtonText}>
                             {('action.addMoreDetailedDescription')}
                           </span>
-                        </button>
-                      )}
-                    </DescriptionEdit>
-                  ) : (
-                    <div className="descriptionText">
-                      <Markdown linkStopPropagation linkTarget="_blank">
-                        {description}
-                      </Markdown>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-            <Activities
-              items={activities}
-              isFetching={isActivitiesFetching}
-              isAllFetched={isAllActivitiesFetched}
-              isDetailsVisible={isActivitiesDetailsVisible}
-              isDetailsFetching={isActivitiesDetailsFetching}
-              canEdit={canEditCommentActivities}
-              canEditAllComments={canEditAllCommentActivities}
-              onFetch={onActivitiesFetch}
-              onDetailsToggle={onActivitiesDetailsToggle}
-              onCommentCreate={onCommentActivityCreate}
-              onCommentUpdate={onCommentActivityUpdate}
-              onCommentDelete={onCommentActivityDelete}
-            />
-          </Grid.Column>
-          {canEdit && (
-            <Grid.Column width={4} className="sidebarPadding">
-              <div className="actions">
-                <span className="actionsTitle">{('action.addToCard')}</span>
-                <LabelsPopup
-                  items={allLabels}
-                  currentIds={labelIds}
-                  onSelect={onLabelAdd}
-                  onDeselect={onLabelRemove}
-                  onCreate={onLabelCreate}
-                  onUpdate={onLabelUpdate}
-                  onMove={onLabelMove}
-                  onDelete={onLabelDelete}
-                >
-                  <Button fluid className="actionButton">
-                    <Icon name="bookmark outline" className="actionIcon" />
-                    {('common.labels')}
-                  </Button>
-                </LabelsPopup>
-                <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
-                  <Button fluid className="actionButton">
-                    <Icon name="calendar check outline" className="actionIcon" />
-                    {('common.dueDate', {
-                      context: 'title',
-                    })}
-                  </Button>
-                </DueDateEditPopup>
-              </div>
-              <div className="actions">
-                <span className="actionsTitle">{('common.actions')}</span>
-                <Button
-                  fluid
-                  className="actionButton"
-                  onClick={handleToggleSubscriptionClick}
-                >
-                  <Icon name="paper plane outline" className="actionIcon" />
-                  {isSubscribed ? ('action.unsubscribe') : ('action.subscribe')}
-                </Button>
-                <CardMovePopup
-                  projectsToLists={allProjectsToLists}
-                  defaultPath={{
-                    projectId,
-                    boardId,
-                    listId,
-                  }}
-                  onMove={onMove}
-                  onTransfer={onTransfer}
-                >
-                  <Button
-                    fluid
-                    className="actionButton"
-                    onClick={handleToggleSubscriptionClick}
-                  >
-                    <Icon name="share square outline" className="actionIcon" />
-                    {('action.move')}
-                  </Button>
-                </CardMovePopup>
-                <DeletePopup
-                  title="common.deleteCard"
-                  content="common.areYouSureYouWantToDeleteThisCard"
-                  buttonContent="action.deleteCard"
-                  onConfirm={onDelete}
-                >
-                  <Button fluid className="actionButton">
-                    <Icon name="trash alternate outline" className="actionIcon" />
-                    {('action.delete')}
-                  </Button>
-                </DeletePopup>
-              </div>
-            </Grid.Column>
-          )}
-        </Grid.Row>
-      </Grid>
+                                            </button>
+                                        )}
+                                    </DescriptionEdit>
+                                ) : (
+                                    <div className={styles.descriptionText}>
+                                        <Markdown linkStopPropagation linkTarget="_blank">
+                                            {description}
+                                        </Markdown>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    <Activities
+                        items={activities}
+                        isFetching={isActivitiesFetching}
+                        isAllFetched={isAllActivitiesFetched}
+                        isDetailsVisible={isActivitiesDetailsVisible}
+                        isDetailsFetching={isActivitiesDetailsFetching}
+                        canEdit={canEditCommentActivities}
+                        canEditAllComments={canEditAllCommentActivities}
+                        onFetch={onActivitiesFetch}
+                        onDetailsToggle={onActivitiesDetailsToggle}
+                        onCommentCreate={onCommentActivityCreate}
+                        onCommentUpdate={onCommentActivityUpdate}
+                        onCommentDelete={onCommentActivityDelete}
+                    />
+                </Grid.Column>
+                {canEdit && (
+                    <Grid.Column width={4} className={styles.sidebarPadding}>
+                        <div className={styles.actions}>
+                            <span className={styles.actionsTitle}>{('action.addToCard')}</span>
+                            <LabelsPopup
+                                items={allLabels}
+                                currentIds={labelIds}
+                                onSelect={onLabelAdd}
+                                onDeselect={onLabelRemove}
+                                onCreate={onLabelCreate}
+                                onUpdate={onLabelUpdate}
+                                onMove={onLabelMove}
+                                onDelete={onLabelDelete}
+                            >
+                                <Button fluid className={styles.actionButton}>
+                                    <Icon name="bookmark outline" className={styles.actionIcon}/>
+                                    {('common.labels')}
+                                </Button>
+                            </LabelsPopup>
+                            <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
+                                <Button fluid className={styles.actionButton}>
+                                    <Icon name="calendar check outline" className={styles.actionIcon}/>
+                                    {('common.dueDate', {
+                                        context: 'title',
+                                    })}
+                                </Button>
+                            </DueDateEditPopup>
+                        </div>
+                        <div className={styles.actions}>
+                            <span className={styles.actionsTitle}>{('common.actions')}</span>
+                            <Button
+                                fluid
+                                className={styles.actionButton}
+                                onClick={handleToggleSubscriptionClick}
+                            >
+                                <Icon name="paper plane outline" className={styles.actionIcon}/>
+                                {isSubscribed ? ('action.unsubscribe') : ('action.subscribe')}
+                            </Button>
+                            <CardMovePopup
+                                projectsToLists={allProjectsToLists}
+                                defaultPath={{
+                                    projectId,
+                                    boardId,
+                                    listId,
+                                }}
+                                onMove={onMove}
+                                onTransfer={onTransfer}
+                            >
+                                <Button
+                                    fluid
+                                    className={styles.actionButton}
+                                    onClick={handleToggleSubscriptionClick}
+                                >
+                                    <Icon name="share square outline" className={styles.actionIcon}/>
+                                    {('action.move')}
+                                </Button>
+                            </CardMovePopup>
+                            <DeletePopup
+                                title="common.deleteCard"
+                                content="common.areYouSureYouWantToDeleteThisCard"
+                                buttonContent="action.deleteCard"
+                                onConfirm={onDelete}
+                            >
+                                <Button fluid className={styles.actionButton}>
+                                    <Icon name="trash alternate outline" className={styles.actionIcon}/>
+                                    {('action.delete')}
+                                </Button>
+                            </DeletePopup>
+                        </div>
+                    </Grid.Column>
+                )}
+            </Grid.Row>
+        </Grid>
     );
 
+    console.log("Idem to otvorit");
     return (
-      <Modal open closeIcon centered={false} onClose={handleClose} className="modalWrapper">
-        canEdit ? (
-          contentNode
-        )
-      </Modal>
+        <Modal open={true} closeIcon centered={false} onClose={handleClose} className={styles.wrapper}>
+            canEdit ? (
+            contentNode
+            )
+        </Modal>
     );
-  },
-);
+}
 
 CardModal.propTypes = {
   name: PropTypes.string.isRequired,
