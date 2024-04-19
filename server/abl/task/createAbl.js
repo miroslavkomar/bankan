@@ -48,7 +48,8 @@ async function CreateAbl(req, res) {
       res.status(400).json({
         code: "dueDateLessThanCurrentDate",
         note: "Task Due Date cannot be less than current date"
-      })
+      });
+      return;
     }
 
     task.stateId = initialTaskStateId;
