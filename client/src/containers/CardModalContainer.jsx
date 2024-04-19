@@ -32,26 +32,17 @@ const mapStateToProps = (state) => {
     name,
     description,
     dueDate,
-    stopwatch,
     isSubscribed,
     isActivitiesFetching,
     isAllActivitiesFetched,
     isActivitiesDetailsVisible,
     isActivitiesDetailsFetching,
-    listId,
-    boardId,
-    projectId,
-    users,
     labels,
     tasks,
     attachments,
     activities,
     allProjectsToLists,
-    allBoardMemberships,
-    allLabels,
-    canEdit: isCurrentUserEditor,
-    canEditCommentActivities: isCurrentUserEditorOrCanComment,
-    canEditAllCommentActivities: isCurrentUserManager,
+    allLabels
   };
 };
 

@@ -41,7 +41,7 @@ const DueDateEditStep = React.memo(({ defaultValue, onUpdate, onBack, onClose })
     }
 
     return date;
-  }, [data.date, t]);
+  }, [data.date]);
 
   const handleDatePickerChange = useCallback(
     (date) => {
@@ -54,7 +54,7 @@ const DueDateEditStep = React.memo(({ defaultValue, onUpdate, onBack, onClose })
       }));
       selectTimeField();
     },
-    [setData, selectTimeField, t],
+    [setData, selectTimeField],
   );
 
   const handleSubmit = useCallback(() => {
@@ -78,7 +78,7 @@ const DueDateEditStep = React.memo(({ defaultValue, onUpdate, onBack, onClose })
     }
 
     onClose();
-  }, [defaultValue, onUpdate, onClose, data, nullableDate, t]);
+  }, [defaultValue, onUpdate, onClose, data, nullableDate]);
 
   const handleClearClick = useCallback(() => {
     if (defaultValue) {
@@ -121,7 +121,7 @@ const DueDateEditStep = React.memo(({ defaultValue, onUpdate, onBack, onClose })
             selected={nullableDate}
             onChange={handleDatePickerChange}
           />
-          <Button positive content={t('action.save')} />
+          <Button positive content={'action.save'} />
         </Form>
         <Button
           negative

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import ColumnContainer from "../../containers/ColumnContainer";
 import CardModalContainer from "../../containers/CardModalContainer";
 

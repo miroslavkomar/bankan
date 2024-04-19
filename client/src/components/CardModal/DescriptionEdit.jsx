@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Form } from 'semantic-ui-react';
 import SimpleMDE from 'react-simplemde-editor';
 
-import styles from './DescriptionEdit.css';
+import './DescriptionEdit.css';
 
 const DescriptionEdit = React.forwardRef(({ children, defaultValue, onUpdate }, ref) => {
   const [isOpened, setIsOpened] = useState(false);
@@ -93,11 +93,11 @@ const DescriptionEdit = React.forwardRef(({ children, defaultValue, onUpdate }, 
         value={value}
         options={mdEditorOptions}
         placeholder={('common.enterDescription')}
-        className={styles.field}
+        className="field"
         onKeyDown={handleFieldKeyDown}
         onChange={setValue}
       />
-      <div className={styles.controls}>
+      <div className="controls">
         <Button positive content={('action.save')} />
       </div>
     </Form>

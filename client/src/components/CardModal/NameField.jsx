@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextArea } from 'semantic-ui-react';
 
-import styles from './NameField.css';
+import { useDidUpdate, usePrevious } from '../../lib/hooks';
+import { useField } from '../../hooks';
+
+import'./NameField.css';
 
 const NameField = React.memo(({ defaultValue, onUpdate }) => {
   const prevDefaultValue = usePrevious(defaultValue);
@@ -48,7 +51,7 @@ const NameField = React.memo(({ defaultValue, onUpdate }) => {
       as={TextareaAutosize}
       value={value}
       spellCheck={false}
-      className={styles.field}
+      className="modalField"
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       onChange={handleChange}

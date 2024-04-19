@@ -4,8 +4,8 @@ const validateDateTime = require("../../helpers/validate-date-time.js");
 ajv.addFormat("date", { validate: validateDateTime });
 
 const taskDao = require("../../dao/task-dao.js");
-const priorityDao = require("../../dao/priority-dao");
-const stateDao = require("../../dao/state-dao");
+const priorityDao = require("../../dao/priority-dao.js");
+const stateDao = require("../../dao/state-dao.js");
 
 const schema = {
   type: "object",
@@ -17,7 +17,7 @@ const schema = {
     stateId: { type: "string"},
     dueDate: { type: "string", format: "date"}
   },
-  required: ["id", "name", "priorityId", "dueDate"],
+  required: ["id", "name", "priorityId", "stateId", "dueDate"],
   additionalProperties: false,
 };
 

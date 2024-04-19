@@ -7,15 +7,15 @@ import { Markdown } from '../../lib/custom-ui';
 
 import NameField from './NameField';
 import DescriptionEdit from './DescriptionEdit';
-import Tasks from './Tasks';
 import Activities from './Activities';
 import Label from '../Label';
 import DueDate from '../DueDate';
+import CardMoveStep from "../CardMoveStep";
 import LabelsStep from '../LabelsStep';
 import DueDateEditStep from '../DueDateEditStep';
 import DeleteStep from '../DeleteStep';
 
-import styles from './CardModal.css';
+import './CardModal.css';
 
 const CardModal = React.memo(
   ({
@@ -31,7 +31,6 @@ const CardModal = React.memo(
     boardId,
     projectId,
     labels,
-    tasks,
     activities,
     allProjectsToLists,
     allLabels,
@@ -111,32 +110,32 @@ const CardModal = React.memo(
     const labelIds = labels.map((label) => label.id);
 
     const contentNode = (
-      <Grid className={styles.grid}>
-        <Grid.Row className={styles.headerPadding}>
-          <Grid.Column width={16} className={styles.headerPadding}>
-            <div className={styles.headerWrapper}>
-              <Icon name="list alternate outline" className={styles.moduleIcon} />
-              <div className={styles.headerTitleWrapper}>
+      <Grid className="grid">
+        <Grid.Row className="headerPadding">
+          <Grid.Column width={16} className="headerPadding">
+            <div className="headerWrapper">
+              <Icon name="list alternate outline" className="moduleIcon" />
+              <div className="headerTitleWrapper">
                 {canEdit ? (
                   <NameField defaultValue={name} onUpdate={handleNameUpdate} />
                 ) : (
-                  <div className={styles.headerTitle}>{name}</div>
+                  <div className="headerTitle">{name}</div>
                 )}
               </div>
             </div>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row className={styles.modalPadding}>
-          <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
+        <Grid.Row className="modalPadding">
+          <Grid.Column width={canEdit ? 12 : 16} className="contentPadding">
                 {labels.length > 0 && (
-                  <div className={styles.attachments}>
-                    <div className={styles.text}>
+                  <div className="attachments">
+                    <div className="text">
                       {('common.labels', {
                         context: 'title',
                       })}
                     </div>
                     {labels.map((label) => (
-                      <span key={label.id} className={styles.attachment}>
+                      <span key={label.id} className="attachment">
                         {canEdit ? (
                           <LabelsPopup
                             key={label.id}
@@ -170,22 +169,22 @@ const CardModal = React.memo(
                         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                         <button
                           type="button"
-                          className={classNames(styles.attachment, styles.dueDate)}
+                          className={classNames("attachment", "dueDate")}
                         >
-                          <Icon name="add" size="small" className={styles.addAttachment} />
+                          <Icon name="add" size="small" className="addAttachment" />
                         </button>
                       </LabelsPopup>
                     )}
                   </div>
                 )}
                 {dueDate && (
-                  <div className={styles.attachments}>
-                    <div className={styles.text}>
+                  <div className="attachments">
+                    <div className="text">
                       {('common.dueDate', {
                         context: 'title',
                       })}
                     </div>
-                    <span className={styles.attachment}>
+                    <span className="attachment">
                       {canEdit ? (
                         <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
                           <DueDate value={dueDate} />
@@ -197,52 +196,36 @@ const CardModal = React.memo(
                   </div>
                 )}
             {(description || canEdit) && (
-              <div className={styles.contentModule}>
-                <div className={styles.moduleWrapper}>
-                  <Icon name="align justify" className={styles.moduleIcon} />
-                  <div className={styles.moduleHeader}>{('common.description')}</div>
+              <div className="contentModule">
+                <div className="moduleWrapper">
+                  <Icon name="align justify" className="moduleIcon" />
+                  <div className="moduleHeader">{('common.description')}</div>
                   {canEdit ? (
                     <DescriptionEdit defaultValue={description} onUpdate={handleDescriptionUpdate}>
                       {description ? (
                         <button
                           type="button"
-                          className={classNames(styles.descriptionText, styles.cursorPointer)}
+                          className={classNames("descriptionText", "cursorPointer")}
                         >
                           <Markdown linkStopPropagation linkTarget="_blank">
                             {description}
                           </Markdown>
                         </button>
                       ) : (
-                        <button type="button" className={styles.descriptionButton}>
-                          <span className={styles.descriptionButtonText}>
+                        <button type="button" className="descriptionButton">
+                          <span className="descriptionButtonText">
                             {('action.addMoreDetailedDescription')}
                           </span>
                         </button>
                       )}
                     </DescriptionEdit>
                   ) : (
-                    <div className={styles.descriptionText}>
+                    <div className="descriptionText">
                       <Markdown linkStopPropagation linkTarget="_blank">
                         {description}
                       </Markdown>
                     </div>
                   )}
-                </div>
-              </div>
-            )}
-            {(tasks.length > 0 || canEdit) && (
-              <div className={styles.contentModule}>
-                <div className={styles.moduleWrapper}>
-                  <Icon name="check square outline" className={styles.moduleIcon} />
-                  <div className={styles.moduleHeader}>{('common.tasks')}</div>
-                  <Tasks
-                    items={tasks}
-                    canEdit={canEdit}
-                    onCreate={onTaskCreate}
-                    onUpdate={onTaskUpdate}
-                    onMove={onTaskMove}
-                    onDelete={onTaskDelete}
-                  />
                 </div>
               </div>
             )}
@@ -262,9 +245,9 @@ const CardModal = React.memo(
             />
           </Grid.Column>
           {canEdit && (
-            <Grid.Column width={4} className={styles.sidebarPadding}>
-              <div className={styles.actions}>
-                <span className={styles.actionsTitle}>{('action.addToCard')}</span>
+            <Grid.Column width={4} className="sidebarPadding">
+              <div className="actions">
+                <span className="actionsTitle">{('action.addToCard')}</span>
                 <LabelsPopup
                   items={allLabels}
                   currentIds={labelIds}
@@ -275,28 +258,28 @@ const CardModal = React.memo(
                   onMove={onLabelMove}
                   onDelete={onLabelDelete}
                 >
-                  <Button fluid className={styles.actionButton}>
-                    <Icon name="bookmark outline" className={styles.actionIcon} />
+                  <Button fluid className="actionButton">
+                    <Icon name="bookmark outline" className="actionIcon" />
                     {('common.labels')}
                   </Button>
                 </LabelsPopup>
                 <DueDateEditPopup defaultValue={dueDate} onUpdate={handleDueDateUpdate}>
-                  <Button fluid className={styles.actionButton}>
-                    <Icon name="calendar check outline" className={styles.actionIcon} />
+                  <Button fluid className="actionButton">
+                    <Icon name="calendar check outline" className="actionIcon" />
                     {('common.dueDate', {
                       context: 'title',
                     })}
                   </Button>
                 </DueDateEditPopup>
               </div>
-              <div className={styles.actions}>
-                <span className={styles.actionsTitle}>{('common.actions')}</span>
+              <div className="actions">
+                <span className="actionsTitle">{('common.actions')}</span>
                 <Button
                   fluid
-                  className={styles.actionButton}
+                  className="actionButton"
                   onClick={handleToggleSubscriptionClick}
                 >
-                  <Icon name="paper plane outline" className={styles.actionIcon} />
+                  <Icon name="paper plane outline" className="actionIcon" />
                   {isSubscribed ? ('action.unsubscribe') : ('action.subscribe')}
                 </Button>
                 <CardMovePopup
@@ -311,10 +294,10 @@ const CardModal = React.memo(
                 >
                   <Button
                     fluid
-                    className={styles.actionButton}
+                    className="actionButton"
                     onClick={handleToggleSubscriptionClick}
                   >
-                    <Icon name="share square outline" className={styles.actionIcon} />
+                    <Icon name="share square outline" className="actionIcon" />
                     {('action.move')}
                   </Button>
                 </CardMovePopup>
@@ -324,8 +307,8 @@ const CardModal = React.memo(
                   buttonContent="action.deleteCard"
                   onConfirm={onDelete}
                 >
-                  <Button fluid className={styles.actionButton}>
-                    <Icon name="trash alternate outline" className={styles.actionIcon} />
+                  <Button fluid className="actionButton">
+                    <Icon name="trash alternate outline" className="actionIcon" />
                     {('action.delete')}
                   </Button>
                 </DeletePopup>
@@ -337,12 +320,10 @@ const CardModal = React.memo(
     );
 
     return (
-      <Modal open closeIcon centered={false} onClose={handleClose} className={styles.wrapper}>
-        {canEdit ? (
-          <AttachmentAddZone onCreate={onAttachmentCreate}>{contentNode}</AttachmentAddZone>
-        ) : (
+      <Modal open closeIcon centered={false} onClose={handleClose} className="modalWrapper">
+        canEdit ? (
           contentNode
-        )}
+        )
       </Modal>
     );
   },
@@ -360,7 +341,6 @@ CardModal.propTypes = {
   listId: PropTypes.string.isRequired,
   /* eslint-disable react/forbid-prop-types */
   labels: PropTypes.array.isRequired,
-  tasks: PropTypes.array.isRequired,
   activities: PropTypes.array.isRequired,
   allProjectsToLists: PropTypes.array.isRequired,
   allLabels: PropTypes.array.isRequired,

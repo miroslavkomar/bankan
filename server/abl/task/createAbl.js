@@ -4,7 +4,7 @@ const validateDateTime = require("../../helpers/validate-date-time.js");
 ajv.addFormat("date", { validate: validateDateTime });
 
 const taskDao = require("../../dao/task-dao.js");
-const priorityDao = require("../../dao/priority-dao");
+const priorityDao = require("../../dao/priority-dao.js");
 
 const schema = {
   type: "object",

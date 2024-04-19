@@ -14,17 +14,10 @@ function App() {
   ])
 
   const tasksInMemory = JSON.parse(localStorage.getItem('task')) || [];
-  const [tasks, setTasks] = useState(tasksInMemory)
+  const [tasks] = useState(tasksInMemory)
 
   const getNewTask = (newTask) => {
     const toDoTasks = [...tasks].filter((task) => task.columnId === 1).length
-
-    if(toDoTasks < columns[0].limit) {
-      localStorage.setItem('task', JSON.stringify([...tasks, newTask]))
-      setTasks(JSON.parse(localStorage.getItem('task')) || [])
-    } else {
-      alert('Task limit (4) cannot be exceeded')
-    }
   }
 
   const {Provider: ColumnProvider} = ColumnContext;

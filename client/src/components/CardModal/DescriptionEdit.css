@@ -1,19 +1,22 @@
-.controls {
-    clear: both;
-    margin-top: 6px;
-}
+:global(#app) {
 
-.field {
-    background: #fff;
-    color: #17394d;
-    display: block;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 4px;
-    overflow: hidden;
-    resize: none;
+    .controls {
+        clear: both;
+        margin-top: 6px;
+    }
 
-    &:focus {
-        outline: none;
+    .field {
+        background: #fff;
+        color: #17394d;
+        display: block;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 4px;
+        overflow: hidden;
+        resize: none;
+
+        &:focus {
+            outline: none;
+        }
     }
 }
