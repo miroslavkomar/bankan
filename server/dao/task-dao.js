@@ -4,6 +4,18 @@ const crypto = require("crypto");
 
 const taskFolderPath = path.join(__dirname, "storage", "taskList");
 
+// Method to read task from a file
+function get(taskId) {
+  try {
+    const filePath = path.join(taskFolderPath, `${taskId}.json`);
+    const fileData = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(fileData);
+  } catch (error) {
+    if (error.code === "ENOENT") return null;
+    throw { code: "failedToReadTask", note: error.note };
+  }
+}
+
 // Method to write task to a file
 function create(task) {
   try {
@@ -60,6 +72,7 @@ function list(dueDateFrom, dueDateTo) {
 }
 
 module.exports = {
+  get,
   create,
   update,
   remove,
