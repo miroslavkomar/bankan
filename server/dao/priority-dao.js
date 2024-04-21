@@ -20,7 +20,7 @@ function get(priorityId) {
 function create(priority) {
   try {
     priority.id = crypto.randomBytes(16).toString("hex");
-    const filePath = path.join(priorityFolderPath, `${priority.id}.json`);c
+    const filePath = path.join(priorityFolderPath, `${priority.id}.json`);
     const fileData = JSON.stringify(priority);
     fs.writeFileSync(filePath, fileData, "utf8");
     return priority;
