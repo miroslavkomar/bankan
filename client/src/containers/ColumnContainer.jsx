@@ -14,7 +14,7 @@ function ColumnContainer() {
     }
 
     return (
-        <div className='column__container'>
+        <div className="column__container">
             <ColumnConsumer>
                 {(context) =>  generateColumns(context)}
             </ColumnConsumer>

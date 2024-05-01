@@ -6,9 +6,9 @@ import {TextArea} from 'semantic-ui-react';
 import {useDidUpdate, usePrevious} from '../../lib/hooks';
 import {useField} from '../../hooks';
 
-import './NameField.module.css';
+import styles from './NameField.module.css';
 
-const NameField = React.memo(({ defaultValue, onUpdate }) => {
+function NameField({ defaultValue, onUpdate }) {
   const prevDefaultValue = usePrevious(defaultValue);
   const [value, handleChange, setValue] = useField(defaultValue);
 
@@ -51,14 +51,14 @@ const NameField = React.memo(({ defaultValue, onUpdate }) => {
       as={TextareaAutosize}
       value={value}
       spellCheck={false}
-      className="modalField"
+      className={styles.field}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       onChange={handleChange}
       onBlur={handleBlur}
     />
   );
-});
+};
 
 NameField.propTypes = {
   defaultValue: PropTypes.string.isRequired,

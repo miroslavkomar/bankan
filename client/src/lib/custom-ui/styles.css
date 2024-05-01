@@ -1,25 +1,5 @@
 /*
-* # Semantic UI - 2.4.0
-* https://github.com/Semantic-Org/Semantic-UI
-* http://www.semantic-ui.com/
-*
-* Copyright 2014 Contributors
-* Released under the MIT license
-* http://opensource.org/licenses/MIT
-*
-*/
-
-@font-face {
-  font-family: "Museo Sans";
-  src: url("./assets/fonts/MuseoSansCyrl-100.eot");
-  src: local("MuseoSansCyrl-100"),
-    url("./assets/fonts/MuseoSansCyrl-100.eot?#iefix")
-      format("embedded-opentype"),
-    url("./assets/fonts/MuseoSansCyrl-100.woff") format("woff"),
-    url("./assets/fonts/MuseoSansCyrl-100.ttf") format("truetype");
-  font-weight: 100;
-  font-style: normal;
-}
+* # Semantic UI - 2.4.
 
 @font-face {
   font-family: "Museo Sans";
@@ -143,20 +123,6 @@
             Reset
 *******************************/
 
-/* Border-Box */
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
-}
-
-html {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 /* iPad Input Shadows */
 
 input[type="text"],
@@ -173,31 +139,12 @@ input[type="password"] {
 /* Document
   ========================================================================== */
 
-/**
-* 1. Correct the line height in all browsers.
-* 2. Prevent adjustments of font size after orientation changes in
-*    IE on Windows Phone and in iOS.
-*/
-
-html {
-  line-height: 1.15;
-  /* 1 */
-  -ms-text-size-adjust: 100%;
-  /* 2 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
-}
-
 /* Sections
   ========================================================================== */
 
 /**
 * Remove the margin in all browsers (opinionated).
 */
-
-body {
-  margin: 0;
-}
 
 /**
 * Add the correct display in IE 9-.
@@ -210,16 +157,6 @@ header,
 nav,
 section {
   display: block;
-}
-
-/**
-* Correct the font size and margin on `h1` elements within `section` and
-* `article` contexts in Chrome, Firefox, and Safari.
-*/
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
 }
 
 /* Grouping content
@@ -279,13 +216,6 @@ pre {
 * 1. Remove the gray background on active links in IE 10.
 * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
 */
-
-a {
-  background-color: transparent;
-  /* 1 */
-  -webkit-text-decoration-skip: objects;
-  /* 2 */
-}
 
 /**
 * 1. Remove the bottom border in Chrome 57- and Firefox 39-.
@@ -421,30 +351,6 @@ svg:not(:root) {
 /* Forms
   ========================================================================== */
 
-/**
-* 1. Change the font styles in all browsers (opinionated).
-* 2. Remove the margin in Firefox and Safari.
-*/
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: sans-serif;
-  /* 1 */
-  font-size: 100%;
-  /* 1 */
-  line-height: 1.15;
-  /* 1 */
-  margin: 0;
-  /* 2 */
-}
-
-/**
-* Show the overflow in IE.
-* 1. Show the overflow in Edge.
-*/
 
 button,
 input {
@@ -514,6 +420,13 @@ fieldset {
 * 3. Remove the padding so developers are not caught out when they zero out
 *    `fieldset` elements in all browsers.
 */
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
 
 legend {
   -webkit-box-sizing: border-box;
@@ -661,6 +574,12 @@ template {
 /*******************************
         Site Overrides
 *******************************/
+optgroup,
+select,
+textarea {
+  font-family: "Museo Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  resize: none !important;
+}
 /*!
 * # Semantic UI 2.4.0 - Site
 * http://github.com/semantic-org/semantic-ui/
@@ -675,80 +594,10 @@ template {
             Page
 *******************************/
 
-html,
-body {
+html{
   height: 100%;
 }
 
-html {
-  font-size: 14px;
-}
-
-body {
-  margin: 0px;
-  padding: 0px;
-  overflow-x: hidden;
-  min-width: 320px;
-  background: #ffffff;
-  font-family: "Museo Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
-  font-smoothing: antialiased;
-}
-
-/*******************************
-            Headers
-*******************************/
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Museo Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
-  line-height: 1.28571429em;
-  margin: calc(2rem - 0.14285714em) 0em 1rem;
-  font-weight: bold;
-  padding: 0em;
-}
-
-h1 {
-  min-height: 1rem;
-  font-size: 2rem;
-}
-
-h2 {
-  font-size: 1.71428571rem;
-}
-
-h3 {
-  font-size: 1.28571429rem;
-}
-
-h4 {
-  font-size: 1.07142857rem;
-}
-
-h5 {
-  font-size: 1rem;
-}
-
-h1:first-child,
-h2:first-child,
-h3:first-child,
-h4:first-child,
-h5:first-child {
-  margin-top: 0em;
-}
-
-h1:last-child,
-h2:last-child,
-h3:last-child,
-h4:last-child,
-h5:last-child {
-  margin-bottom: 0em;
-}
 
 /*******************************
             Text
@@ -20473,7 +20322,6 @@ ol.ui.horizontal.list li:before,
 .ui.form input[type="text"],
 .ui.form input[type="file"],
 .ui.form input[type="url"] {
-  font-family: "Museo Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
   margin: 0em;
   outline: none;
   -webkit-appearance: none;
@@ -21619,7 +21467,6 @@ ol.ui.horizontal.list li:before,
   position: relative;
   display: inline-block;
   width: 6.25%;
-  padding-left: 1rem;
   padding-right: 1rem;
   vertical-align: top;
 }
@@ -21652,33 +21499,6 @@ ol.ui.horizontal.list li:before,
   align-items: stretch;
   width: 100% !important;
   padding: 0rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-/*-------------------
-      Columns
---------------------*/
-
-/* Vertical padding when no rows */
-
-.ui.grid > .column:not(.row) {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.ui.grid > .row > .column {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-
-/*-------------------
-      Content
---------------------*/
-
-.ui.grid > .row > img,
-.ui.grid > .row > .column > img {
-  max-width: 100%;
 }
 
 /*-------------------
@@ -40813,19 +40633,6 @@ body.pushable > .pusher {
   100% {
     background-color: #fcfcfd;
   }
-}
-
-/*******************************
-        Site Overrides
-*******************************/
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: "Museo Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
-  resize: none !important;
 }
 
 .ui.progress .bar {

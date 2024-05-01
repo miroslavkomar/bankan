@@ -1,7 +1,6 @@
 import React, {useReducer} from 'react';
 
 import PropTypes from 'prop-types';
-import DatePicker from 'react-datepicker';
 
 function Form (props) {
 
@@ -25,16 +24,16 @@ function Form (props) {
     const {dueDateFrom, dueDateTo} = state
 
     return (
-        <form className='form'>
-            <div className='form__container'>
+        <form className="form">
+            <div className="form__container">
                 <h1>BanKan</h1>
                 <div>
-                    <label> <input name='dueDateFrom' value={dueDateFrom} type='date' onChange={e => dispatch({type: 'change', element: e.target})}
+                    <label> <input name='dueDateFrom' className={"dueDateInput"} value={dueDateFrom} type='date' onChange={e => dispatch({type: 'change', element: e.target})}
                                    placeholder='due date from' required/></label>
-                    <label> <input name='dueDateTo' value={dueDateTo} type='date' onChange={e => dispatch({type: 'change', element: e.target})}
+                    <label> <input name='dueDateTo' className={"dueDateInput"} value={dueDateTo} type='date' onChange={e => dispatch({type: 'change', element: e.target})}
                                    placeholder='due date from to' required/></label>
                 </div>
-                <button type="button" className='create__button'>Plan Task</button>
+                <button type="button" className="create__button">Plan Task</button>
             </div>
         </form>
     )

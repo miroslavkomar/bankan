@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
-import './App.css';
-import './styles.module.css';
+import './lib/custom-ui/styles.css';
 import Board from './components/Board/Board';
 import Form from './components/Board/Form';
-
 import {ColumnContext} from "./ColumnContext";
+import './App.css';
 
 function App() {
   const columns = ([
-    { id: 1, title: 'To do', className: 'column col_first'},
-    { id: 2, title: 'In progress', className: 'column col_second'},
-    { id: 3, title: 'Done', className: 'column col_third'},
+    { id: 1, title: 'To do', className: 'board_column col_first'},
+    { id: 2, title: 'In progress', className: 'board_column col_second'},
+    { id: 3, title: 'Done', className: 'board_column col_third'},
   ])
 
   const tasksInMemory = JSON.parse(localStorage.getItem('task')) || [];
@@ -25,7 +24,7 @@ function App() {
       <>
         <Form getNewTask={getNewTask}/>
         <ColumnProvider value={{columns}}>
-            <Board isCardModalOpened={true}/>
+            <Board/>
         </ColumnProvider>
       </>
   );
