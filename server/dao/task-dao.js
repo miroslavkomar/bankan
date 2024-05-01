@@ -64,9 +64,7 @@ function list(dueDateFrom, dueDateTo) {
     const files = fs.readdirSync(taskFolderPath);
     return files.map((file) => {
       const fileData = fs.readFileSync(path.join(taskFolderPath, file), "utf8");
-      const taskItem = JSON.parse(fileData);
-      delete taskItem.description;
-      return taskItem;
+      return JSON.parse(fileData);
     }).filter(task => new Date(dueDateFrom) <= new Date(task.dueDate) && new Date(task.dueDate) <= new Date(dueDateTo));
   } catch (error) {
     throw { code: "failedToListTasks", note: error.note };
