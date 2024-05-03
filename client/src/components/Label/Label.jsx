@@ -17,7 +17,8 @@ const SIZES = {
 
 const FONT_COLORS = {
   WHITE: 'white',
-  BLACK: 'black'
+  BLACK: 'black',
+  GRAY: 'gray'
 };
 
 function Label({ name, fontColor, color, size, onClick }) {

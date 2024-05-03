@@ -1,32 +1,42 @@
 import PropTypes from 'prop-types';
-import {Form, TextArea} from 'semantic-ui-react';
+import { Form, TextArea } from 'semantic-ui-react';
 
 import './DescriptionEdit.module.css';
-import TextareaAutosize from "react-textarea-autosize";
-import styles from "./Activities/CommentAdd.module.css";
+import TextareaAutosize from 'react-textarea-autosize';
+import styles from './Activities/CommentAdd.module.css';
+import { useCallback, useState } from 'react';
 
-function DescriptionEdit ({ defaultValue }) {
+function DescriptionEdit({ defaultValue, onUpdate }) {
+  const [value, setValue] = useState(defaultValue);
+
+  const handleUpdate = useCallback((e) => {
+    setValue(e.target.value);
+    onUpdate('description', e.target.value);
+  }, []);
 
   return (
-      <Form>
-        <TextArea
-            as={TextareaAutosize}
-            name="text"
-            placeholder={'Add more detailed description'}
-            minRows={3}
-            spellCheck={false}
-            className={styles.field}
-        />
-      </Form>
+    <Form>
+      <TextArea
+        as={TextareaAutosize}
+        value={value}
+        name='description'
+        placeholder={'Add more detailed description'}
+        minRows={3}
+        spellCheck={false}
+        className={styles.field}
+        onChange={handleUpdate}
+      />
+    </Form>
   );
 }
 
 DescriptionEdit.propTypes = {
-  defaultValue: PropTypes.string
+  defaultValue: PropTypes.string,
+  nUpdate: PropTypes.func.isRequired
 };
 
 DescriptionEdit.defaultProps = {
-  defaultValue: undefined,
+  defaultValue: ''
 };
 
 export default DescriptionEdit;

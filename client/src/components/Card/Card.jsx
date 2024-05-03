@@ -9,7 +9,7 @@ import styles from './Card.module.css';
 import CardModal from '../CardModal/CardModal';
 
 const priorityLabel = {
-  LOW: { fontColor: 'black', color: 'light-gray' },
+  LOW: { fontColor: 'gray', color: 'light-gray' },
   NORMAL: { fontColor: 'white', color: 'lime-green' },
   HIGH: { fontColor: 'white', color: 'berry-red' }
 };
@@ -74,14 +74,7 @@ function Card(task) {
         </Link>
       </div>
       {showCardModal ? (
-        <CardModal
-          taskId={task.id}
-          name={task.name}
-          dueDate={task.dueDate}
-          description={task.description}
-          labels={label}
-          onCloseActionCallback={onModalClose}
-        />
+        <CardModal task={task} onCloseActionCallback={onModalClose} />
       ) : null}
     </div>
   );

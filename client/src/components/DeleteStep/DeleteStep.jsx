@@ -9,9 +9,7 @@ const DeleteStep = React.memo(
   ({ title, content, buttonContent, onConfirm, onBack }) => {
     return (
       <>
-        <Popup.Header onBack={onBack}>
-          Do you really wanna delete ?
-        </Popup.Header>
+        <Popup.Header onBack={onBack}>{title}</Popup.Header>
         <Popup.Content>
           <div className='content'>{content}</div>
           <Button fluid negative content={buttonContent} onClick={onConfirm} />

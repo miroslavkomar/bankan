@@ -1,14 +1,12 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextArea } from 'semantic-ui-react';
 
-import { useField } from '../../hooks';
-
 import styles from './NameField.module.css';
 
-function NameField({ defaultValue }) {
-  const [value, handleChange, setValue] = useField(defaultValue);
+function NameField({ defaultValue, onUpdate }) {
+  const [value, setValue] = useState(defaultValue);
 
   const isFocused = useRef(false);
 
@@ -24,6 +22,25 @@ function NameField({ defaultValue }) {
     }
   }, []);
 
+  const handleBlur = useCallback(() => {
+    isFocused.current = false;
+
+    const cleanValue = value.trim();
+
+    if (cleanValue) {
+      if (cleanValue !== defaultValue) {
+        onUpdate(cleanValue);
+      }
+    } else {
+      setValue(defaultValue);
+    }
+  }, [defaultValue, onUpdate, value, setValue]);
+
+  const handleUpdate = useCallback((e) => {
+    setValue(e.target.value);
+    onUpdate('name', e.target.value);
+  }, []);
+
   return (
     <TextArea
       as={TextareaAutosize}
@@ -32,13 +49,15 @@ function NameField({ defaultValue }) {
       className={styles.field}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
-      onChange={handleChange}
+      onChange={handleUpdate}
+      onBlur={handleBlur}
     />
   );
 }
 
 NameField.propTypes = {
-  defaultValue: PropTypes.string.isRequired
+  defaultValue: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired
 };
 
 export default NameField;

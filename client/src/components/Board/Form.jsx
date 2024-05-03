@@ -10,7 +10,6 @@ function Form() {
     dueDateTo: moment(new Date()).format('YYYY-MM-DD')
   };
   const { getTasks } = useTasks();
-
   const [showCardModal, setShowCardModal] = useState(false);
 
   const reducer = (state, action) => {
@@ -39,6 +38,10 @@ function Form() {
     }
   }, []);
 
+  const onModalClose = (value) => {
+    setShowCardModal(value);
+  };
+
   return (
     <form className='task_form'>
       <div className='form__container'>
@@ -65,18 +68,9 @@ function Form() {
           Plan Task
         </button>
       </div>
-      {/*{showCardModal ? (*/}
-      {/*  <CardModal*/}
-      {/*    taskId={id}*/}
-      {/*    name={'Nazov tasku'}*/}
-      {/*    dueDate={'2024-04-30'}*/}
-      {/*    description={''}*/}
-      {/*    labels={[*/}
-      {/*      { id: '123', fontColor: 'white', color: 'berry-red', name: 'HIGH' }*/}
-      {/*    ]}*/}
-      {/*    onCloseActionCallback={onModalClose}*/}
-      {/*  />*/}
-      {/*) : null}*/}
+      {showCardModal ? (
+        <CardModal onCloseActionCallback={onModalClose} />
+      ) : null}
     </form>
   );
 }

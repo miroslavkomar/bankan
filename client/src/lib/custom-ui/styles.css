@@ -421,12 +421,12 @@ fieldset {
 *    `fieldset` elements in all browsers.
 */
 
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
-}
+/**,*/
+/**:before,*/
+/**:after {*/
+/*  -webkit-box-sizing: inherit;*/
+/*  box-sizing: inherit;*/
+/*}*/
 
 legend {
   -webkit-box-sizing: border-box;
