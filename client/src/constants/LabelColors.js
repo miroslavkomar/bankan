@@ -14,6 +14,7 @@ export default [
   'light-orange',
   'midnight-blue',
   'tank-green',
+  'lime-green',
   'gun-metal',
   'wet-moss',
   'red-burgundy',
@@ -24,4 +25,5 @@ export default [
   'egg-yellow',
   'coral-green',
   'light-cocoa',
+  'light-gray'
 ];

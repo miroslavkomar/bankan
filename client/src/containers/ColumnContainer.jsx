@@ -1,25 +1,29 @@
-import React from 'react';
-import Column from '../components/Column/Column'
+import Column from '../components/Column/Column';
 
-import {ColumnContext} from "../ColumnContext";
+const columns = [
+  {
+    id: 1,
+    title: 'To do',
+    status: 'TODO',
+    className: 'board_column col_first'
+  },
+  {
+    id: 2,
+    title: 'In progress',
+    status: 'IN_PROGRESS',
+    className: 'board_column col_second'
+  },
+  { id: 3, title: 'Done', status: 'DONE', className: 'board_column col_third' }
+];
 
 function ColumnContainer() {
-
-    const {Consumer: ColumnConsumer} = ColumnContext;
-
-    const generateColumns = (context) => {
-
-        return context.columns.map(column =>
-            <Column className={column.className} key={column.id} id={column.id} item={column} columnTitle={column.title}/>)
-    }
-
-    return (
-        <div className="column__container">
-            <ColumnConsumer>
-                {(context) =>  generateColumns(context)}
-            </ColumnConsumer>
-        </div>
-    )
+  return (
+    <div className='column__container'>
+      {columns.map((column) => (
+        <Column key={column.id} {...column} />
+      ))}
+    </div>
+  );
 }
 
-export default ColumnContainer
+export default ColumnContainer;

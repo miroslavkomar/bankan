@@ -79,7 +79,7 @@ h3 {
 
 /* FORM */
 
-.form {
+.task_form {
     color: white;
     margin-top: 50px;
     min-height: 60px;;
@@ -89,6 +89,13 @@ h3 {
     border-radius: 5px;
     justify-content: center;
     align-items: center;
+}
+.task_area {
+    height: 80px;
+    width: 95%;
+    border: 1px solid gray;
+    border-radius: 3px;
+
 }
 
 .form__container {
@@ -206,7 +213,7 @@ h3 {
         margin: 0 auto;
     }
 
-    .form {
+    .task_form {
         margin: 0;
         max-width: 320px;
         justify-content: center;
