@@ -16,6 +16,7 @@ import { useCallback, useState } from 'react';
 import moment from 'moment';
 import { usePriorities } from '../../contexts/PriorityContext';
 import { useTaskStates } from '../../contexts/TaskStateContext';
+import { useDueDate } from '../../contexts/DueDateContext';
 
 const taskLabel = {
   LOW: { fontColor: 'gray', color: 'light-gray' },
@@ -28,6 +29,7 @@ const taskLabel = {
 
 function CardModal({ initialTask, onCloseActionCallback }) {
   const { getTasks } = useTasks();
+  const { getDueDate } = useDueDate();
   const [task, setTask] = useState({ ...initialTask });
   const { priorities } = usePriorities();
   const { taskStates } = useTaskStates();
@@ -70,7 +72,7 @@ function CardModal({ initialTask, onCloseActionCallback }) {
       },
       body: JSON.stringify(task)
     });
-    await getTasks();
+    await getTasks(getDueDate().from, getDueDate().to);
     response.status < 400 && onCloseActionCallback(false);
   };
 

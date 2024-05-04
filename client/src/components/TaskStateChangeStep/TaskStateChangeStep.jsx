@@ -50,7 +50,7 @@ function TaskStateChangeStep({ defaultValue, onUpdate, onClose }) {
 }
 
 TaskStateChangeStep.propTypes = {
-  defaultValue: PropTypes.func,
+  defaultValue: PropTypes.string,
   onUpdate: PropTypes.func.isRequired,
   onClose: PropTypes.func
 };

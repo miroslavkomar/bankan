@@ -1,14 +1,16 @@
-import React, { useCallback, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTasks } from '../../contexts/TaskContext';
 import moment from 'moment';
 import CardModal from '../CardModal';
+import { useDueDate } from '../../contexts/DueDateContext';
 
 function Form() {
   const init = {
     dueDateFrom: moment(new Date()).format('YYYY-MM-DD'),
     dueDateTo: moment(new Date()).format('YYYY-MM-DD')
   };
+  const { setDueDate } = useDueDate();
   const { getTasks } = useTasks();
   const [showCardModal, setShowCardModal] = useState(false);
 
@@ -21,6 +23,7 @@ function Form() {
         const { name, value } = action.element;
         /*eslint-enable */
         state = { ...state, [name]: value };
+        setDueDate({ from: state.dueDateFrom, to: state.dueDateTo });
         getTasks(state.dueDateFrom, state.dueDateTo);
         return state;
       default:
@@ -55,6 +58,7 @@ function Form() {
             onChange={(e) => dispatch({ type: 'change', element: e.target })}
             placeholder='due date from'
           />
+          -
           <input
             name='dueDateTo'
             className={'dueDateInput'}

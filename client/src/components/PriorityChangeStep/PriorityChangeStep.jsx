@@ -50,7 +50,7 @@ function PriorityChangeStep({ defaultValue, onUpdate, onClose }) {
 }
 
 PriorityChangeStep.propTypes = {
-  defaultValue: PropTypes.func,
+  defaultValue: PropTypes.string,
   onUpdate: PropTypes.func.isRequired,
   onClose: PropTypes.func
 };
