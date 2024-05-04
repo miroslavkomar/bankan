@@ -1,174 +1,57 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-datepicker';
 import { Button, Form } from 'semantic-ui-react';
-import { useDidUpdate, useToggle } from '../../lib/hooks';
 import { Input, Popup } from '../../lib/custom-ui';
 
-import { useForm } from '../../hooks';
+import styles from './DueDateEditStep.module.css';
+import moment from 'moment';
 
-import './DueDateEditStep.module.css';
+function DueDateEditStep({ defaultValue, onUpdate, onClose }) {
+  const [value, setValue] = useState(
+    defaultValue ? defaultValue : moment(new Date()).format('YYYY-MM-DD')
+  );
 
-const DueDateEditStep = React.memo(
-  ({ defaultValue, onUpdate, onBack, onClose }) => {
-    const [data, handleFieldChange, setData] = useForm(() => {
-      const date = defaultValue || new Date().setHours(12, 0, 0, 0);
+  const handleChange = useCallback(
+    (e, data) => {
+      setValue(data.value);
+    },
+    [value]
+  );
+  const handleSubmit = useCallback(() => {
+    onUpdate('dueDate', value);
+    onClose();
+  }, [value]);
 
-      return {
-        date:
-          ('format:date',
-          {
-            postProcess: 'formatDate',
-            value: date
-          }),
-        time:
-          ('format:time',
-          {
-            postProcess: 'formatDate',
-            value: date
-          })
-      };
-    });
-
-    const [selectTimeFieldState, selectTimeField] = useToggle();
-
-    const dateField = useRef(null);
-    const timeField = useRef(null);
-
-    const nullableDate = useMemo(() => {
-      const date =
-        ('format:date',
-        {
-          postProcess: 'parseDate',
-          value: data.date
-        });
-
-      if (Number.isNaN(date.getTime())) {
-        return null;
-      }
-
-      return date;
-    }, [data.date]);
-
-    const handleDatePickerChange = useCallback(
-      (date) => {
-        setData((prevData) => ({
-          ...prevData,
-          date:
-            ('format:date',
-            {
-              postProcess: 'formatDate',
-              value: date
-            })
-        }));
-        selectTimeField();
-      },
-      [setData, selectTimeField]
-    );
-
-    const handleSubmit = useCallback(() => {
-      if (!nullableDate) {
-        dateField.current.select();
-        return;
-      }
-
-      const value =
-        ('format:dateTime',
-        {
-          postProcess: 'parseDate',
-          value: `${data.date} ${data.time}`
-        });
-
-      if (Number.isNaN(value.getTime())) {
-        timeField.current.select();
-        return;
-      }
-
-      if (!defaultValue || value.getTime() !== defaultValue.getTime()) {
-        onUpdate(value);
-      }
-
-      onClose();
-    }, [defaultValue, onUpdate, onClose, data, nullableDate]);
-
-    const handleClearClick = useCallback(() => {
-      if (defaultValue) {
-        onUpdate(null);
-      }
-
-      onClose();
-    }, [defaultValue, onUpdate, onClose]);
-
-    useEffect(() => {
-      dateField.current.select();
-    }, []);
-
-    useDidUpdate(() => {
-      timeField.current.select();
-    }, [selectTimeFieldState]);
-
-    return (
-      <>
-        <Popup.Header onBack={onBack}>
-          {
-            ('common.editDueDate',
-            {
-              context: 'title'
-            })
-          }
-        </Popup.Header>
-        <Popup.Content>
-          <Form onSubmit={handleSubmit}>
-            <div className='fieldWrapper'>
-              <div className='fieldBox'>
-                <div className='text'>{'common.date'}</div>
-                <Input
-                  ref={dateField}
-                  name='date'
-                  value={data.date}
-                  onChange={handleFieldChange}
-                />
-              </div>
-              <div className='fieldBox'>
-                <div className='text'>{'common.time'}</div>
-                <Input
-                  ref={timeField}
-                  name='time'
-                  value={data.time}
-                  onChange={handleFieldChange}
-                />
-              </div>
+  return (
+    <>
+      <Popup.Header>Due date</Popup.Header>
+      <Popup.Content>
+        <Form onSubmit={handleSubmit}>
+          <div className={styles.fieldWrapper}>
+            <div className={styles.fieldBox}>
+              <Input
+                type='date'
+                name='date'
+                value={value}
+                onChange={handleChange}
+              />
             </div>
-            <DatePicker
-              inline
-              disabledKeyboardNavigation
-              selected={nullableDate}
-              onChange={handleDatePickerChange}
-            />
-            <Button positive content={'action.save'} />
-          </Form>
-          <Button
-            negative
-            content={'action.remove'}
-            className='deleteButton'
-            onClick={handleClearClick}
-          />
-        </Popup.Content>
-      </>
-    );
-  }
-);
+          </div>
+          <Button positive content='Save' />
+        </Form>
+      </Popup.Content>
+    </>
+  );
+}
 
 DueDateEditStep.propTypes = {
   defaultValue: PropTypes.string,
   onUpdate: PropTypes.func.isRequired,
-  onBack: PropTypes.func,
   onClose: PropTypes.func.isRequired
 };
 
 DueDateEditStep.defaultProps = {
-  defaultValue: undefined,
-  onBack: undefined
+  defaultValue: undefined
 };
 
 export default DueDateEditStep;

@@ -5,51 +5,82 @@ import { usePopup } from '../../lib/popup';
 import Label from '../Label';
 import NameField from './NameField';
 import DueDateEditStep from '../DueDateEditStep';
-import CardMoveStep from '../CardMoveStep';
+import TaskStateChangeStep from '../TaskStateChangeStep';
+import PriorityChangeStep from '../PriorityChangeStep';
 import DeleteStep from '../DeleteStep';
-import LabelsStep from '../LabelsStep';
 
 import styles from './CardModal.module.css';
 import DescriptionEdit from './DescriptionEdit';
 import { useTasks } from '../../contexts/TaskContext';
 import { useCallback, useState } from 'react';
 import moment from 'moment';
+import { usePriorities } from '../../contexts/PriorityContext';
+import { useTaskStates } from '../../contexts/TaskStateContext';
 
-const priorityLabel = {
+const taskLabel = {
   LOW: { fontColor: 'gray', color: 'light-gray' },
   NORMAL: { fontColor: 'white', color: 'lime-green' },
-  HIGH: { fontColor: 'white', color: 'berry-red' }
+  HIGH: { fontColor: 'white', color: 'berry-red' },
+  TODO: { fontColor: 'white', color: 'dark-pink' },
+  'IN PROGRESS': { fontColor: 'white', color: 'sunny-yellow' },
+  DONE: { fontColor: 'gray', color: 'light-purple' }
 };
 
-function CardModal({ task, onCloseActionCallback }) {
+function CardModal({ initialTask, onCloseActionCallback }) {
   const { getTasks } = useTasks();
-  const [newTask, setTask] = useState({ ...task });
+  const [task, setTask] = useState({ ...initialTask });
+  const { priorities } = usePriorities();
+  const { taskStates } = useTaskStates();
 
-  const LabelsPopup = usePopup(LabelsStep);
+  const getPriority = (priorityId) => {
+    return priorities.find((priority) => priority.id === priorityId).name;
+  };
+
+  const getTaskState = (stateId) => {
+    return taskStates.find((taskState) => taskState.id === stateId).name;
+  };
+
+  const getLabel = (labelName) => {
+    return {
+      fontColor: taskLabel[labelName].fontColor,
+      color: taskLabel[labelName].color
+    };
+  };
+
+  const PriorityChangePopup = usePopup(PriorityChangeStep);
   const DueDateEditPopup = usePopup(DueDateEditStep);
-  const CardMovePopup = usePopup(CardMoveStep);
+  const TaskStateChangePopup = usePopup(TaskStateChangeStep);
   const DeletePopup = usePopup(DeleteStep);
 
   // const [description, setDescription] = useState([]); pre description
   // fetchovacia funkcia
   // useEffect v ktorom sa zavola fetch pre description
 
+  const handleFieldUpdate = useCallback((fieldName, newValue) => {
+    task[fieldName] = newValue;
+    setTask(task);
+  }, []);
+
   const onSave = async (e) => {
     e.preventDefault();
+    const response = await fetch(`http://localhost:8000/task`, {
+      method: task.id ? 'PUT' : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    });
+    await getTasks();
+    response.status < 400 && onCloseActionCallback(false);
   };
-
-  const handleFieldUpdate = useCallback((fieldName, newValue) => {
-    newTask[fieldName] = newValue;
-    console.log(fieldName, newTask[fieldName]);
-  }, []);
 
   const onDelete = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:8000/task/${task.id}`, {
+    const response = await fetch(`http://localhost:8000/task/${task.id}`, {
       method: 'DELETE'
     });
-    const responseStatus = await getTasks();
-    responseStatus && onCloseActionCallback(false);
+    await getTasks();
+    response.status < 400 && onCloseActionCallback(false);
   };
 
   const contentNode = (
@@ -60,7 +91,7 @@ function CardModal({ task, onCloseActionCallback }) {
             <Icon name='list alternate outline' className={styles.moduleIcon} />
             <div className={styles.headerTitleWrapper}>
               <NameField
-                defaultValue={task ? task.name : 'Task name'}
+                defaultValue={initialTask ? initialTask.name : 'Task name'}
                 onUpdate={handleFieldUpdate}
               />
             </div>
@@ -69,16 +100,28 @@ function CardModal({ task, onCloseActionCallback }) {
       </Grid.Row>
       <Grid.Row className={styles.modalPadding}>
         <Grid.Column width={10} className={styles.contentPadding}>
-          {task && (
+          {initialTask && (
             <div className={styles.moduleWrapper}>
               <div className={styles.attachments}>
                 <div className={styles.text}>Priority</div>
                 <span className={styles.attachment}>
                   <Label
                     size='medium'
-                    name={task.priority}
-                    fontColor={priorityLabel[task.priority].fontColor}
-                    color={priorityLabel[task.priority].color}
+                    name={getPriority(task.priorityId)}
+                    fontColor={getLabel(getPriority(task.priorityId)).fontColor}
+                    color={getLabel(getPriority(task.priorityId)).color}
+                  />
+                </span>
+              </div>
+              <div className={styles.attachments}>
+                <div className={styles.text}>State</div>
+                <span className={styles.attachment}>
+                  <Label
+                    key={task.stateId}
+                    size='medium'
+                    name={getTaskState(task.stateId)}
+                    fontColor={getLabel(getTaskState(task.stateId)).fontColor}
+                    color={getLabel(getTaskState(task.stateId)).color}
                   />
                 </span>
               </div>
@@ -109,23 +152,27 @@ function CardModal({ task, onCloseActionCallback }) {
         <Grid.Column width={4} className={styles.sidebarPadding}>
           <div className={styles.actions}>
             <span className={styles.actionsTitle}>Add to card</span>
-            {task && (
-              <CardMovePopup>
-                <Button className={styles.actionButton}>
+            {initialTask && (
+              <TaskStateChangePopup
+                defaultValue={task.stateId}
+                onUpdate={handleFieldUpdate}
+              >
+                <Button fluid className={styles.actionButton}>
                   <Icon
                     name='share square outline'
                     className={styles.actionIcon}
                   />
-                  Change state
+                  Status
                 </Button>
-              </CardMovePopup>
+              </TaskStateChangePopup>
             )}
             <DueDateEditPopup
               defaultValue={
                 task ? task.dueDate : moment(new Date()).format('YYYY-MM-DD')
               }
+              onUpdate={handleFieldUpdate}
             >
-              <Button className={styles.actionButton}>
+              <Button fluid className={styles.actionButton}>
                 <Icon
                   name='calendar check outline'
                   className={styles.actionIcon}
@@ -133,16 +180,19 @@ function CardModal({ task, onCloseActionCallback }) {
                 Due date
               </Button>
             </DueDateEditPopup>
-            <CardMovePopup>
-              <Button className={styles.actionButton}>
+            <PriorityChangePopup
+              defaultValue={task.priorityId}
+              onUpdate={handleFieldUpdate}
+            >
+              <Button fluid className={styles.actionButton}>
                 <Icon name='flag outline' className={styles.actionIcon} />
                 Priority
               </Button>
-            </CardMovePopup>
+            </PriorityChangePopup>
           </div>
           <div className={styles.actions}>
             <span className={styles.actionsTitle}>Actions</span>
-            {task && (
+            {initialTask && (
               <DeletePopup
                 title='Delete Task'
                 content='Are you sure you want to delete this task ?'
@@ -182,15 +232,12 @@ function CardModal({ task, onCloseActionCallback }) {
 }
 
 CardModal.propTypes = {
-  name: PropTypes.string,
-  description: PropTypes.string,
-  dueDate: PropTypes.string,
+  initialTask: PropTypes.object,
   onCloseActionCallback: PropTypes.func.isRequired
 };
 
 CardModal.defaultProps = {
-  description: undefined,
-  dueDate: undefined
+  initialTask: undefined
 };
 
 export default CardModal;

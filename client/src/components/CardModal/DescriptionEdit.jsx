@@ -32,7 +32,7 @@ function DescriptionEdit({ defaultValue, onUpdate }) {
 
 DescriptionEdit.propTypes = {
   defaultValue: PropTypes.string,
-  nUpdate: PropTypes.func.isRequired
+  onUpdate: PropTypes.func.isRequired
 };
 
 DescriptionEdit.defaultProps = {

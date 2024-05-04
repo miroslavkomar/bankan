@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 import { TextArea } from 'semantic-ui-react';
@@ -7,6 +7,10 @@ import styles from './NameField.module.css';
 
 function NameField({ defaultValue, onUpdate }) {
   const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    onUpdate('name', value);
+  }, []);
 
   const isFocused = useRef(false);
 

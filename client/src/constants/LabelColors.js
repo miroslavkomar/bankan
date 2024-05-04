@@ -1,6 +1,9 @@
 export default [
   'berry-red',
   'pumpkin-orange',
+  'sunny-yellow',
+  'dark-pink',
+  'light-purple',
   'lagoon-blue',
   'pink-tulip',
   'light-mud',

@@ -7,6 +7,7 @@ import Label from '../Label';
 import DueDate from '../DueDate';
 import styles from './Card.module.css';
 import CardModal from '../CardModal/CardModal';
+import { usePriorities } from '../../contexts/PriorityContext';
 
 const priorityLabel = {
   LOW: { fontColor: 'gray', color: 'light-gray' },
@@ -16,6 +17,11 @@ const priorityLabel = {
 
 function Card(task) {
   const [showCardModal, setShowCardModal] = useState(false);
+  const { priorities } = usePriorities();
+
+  const getPriority = (priorityId) => {
+    return priorities.find((priority) => priority.id === priorityId);
+  };
 
   const handleClick = useCallback(() => {
     if (document.activeElement) {
@@ -29,13 +35,13 @@ function Card(task) {
   };
 
   const getLabel = () => {
+    const taskPriority = getPriority(task.priorityId).name;
     return {
-      name: task.priority,
-      fontColor: priorityLabel[task.priority].fontColor,
-      color: priorityLabel[task.priority].color
+      name: taskPriority,
+      fontColor: priorityLabel[taskPriority].fontColor,
+      color: priorityLabel[taskPriority].color
     };
   };
-  const label = getLabel();
 
   const contentNode = (
     <>
@@ -45,9 +51,9 @@ function Card(task) {
             className={classNames(styles.attachment, styles.attachmentLeft)}
           >
             <Label
-              name={label.name}
-              fontColor={label.fontColor}
-              color={label.color}
+              name={getLabel().name}
+              fontColor={getLabel().fontColor}
+              color={getLabel().color}
               size='small'
             />
           </span>
@@ -74,7 +80,7 @@ function Card(task) {
         </Link>
       </div>
       {showCardModal ? (
-        <CardModal task={task} onCloseActionCallback={onModalClose} />
+        <CardModal initialTask={task} onCloseActionCallback={onModalClose} />
       ) : null}
     </div>
   );
@@ -83,8 +89,7 @@ function Card(task) {
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  dueDate: PropTypes.string.isRequired,
-  priority: PropTypes.string.isRequired
+  dueDate: PropTypes.string.isRequired
 };
 
 export default Card;

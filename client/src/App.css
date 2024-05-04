@@ -222,7 +222,7 @@ h3 {
         border: none;
     }
 
-    input {
+    .dueDateInput {
         width: 70%;
         padding: 10px;
         margin-bottom: 20px;;
