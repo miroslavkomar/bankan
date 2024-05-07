@@ -11,16 +11,13 @@ function DueDateEditStep({ defaultValue, onUpdate, onClose }) {
     defaultValue ? defaultValue : moment(new Date()).format('YYYY-MM-DD')
   );
 
-  const handleChange = useCallback(
-    (e, data) => {
-      setValue(data.value);
-    },
-    [value]
-  );
-  const handleSubmit = useCallback(() => {
-    onUpdate('dueDate', value);
+  const handleChange = (e, data) => {
+    setValue(data.value);
+  };
+  const handleSubmit = () => {
+    onUpdate({ dueDate: value });
     onClose();
-  }, [value]);
+  };
 
   return (
     <>

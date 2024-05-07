@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './lib/custom-ui/styles.css';
 import Board from './components/Board/Board';
 import Form from './components/Board/Form';

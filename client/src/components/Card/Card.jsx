@@ -80,16 +80,14 @@ function Card(task) {
         </Link>
       </div>
       {showCardModal ? (
-        <CardModal initialTask={task} onCloseActionCallback={onModalClose} />
+        <CardModal taskId={task.id} onCloseActionCallback={onModalClose} />
       ) : null}
     </div>
   );
 }
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  dueDate: PropTypes.string.isRequired
+  task: PropTypes.object
 };
 
 export default Card;

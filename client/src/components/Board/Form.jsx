@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useReducer, useState } from 'react';
 import { useTasks } from '../../contexts/TaskContext';
 import moment from 'moment';
 import CardModal from '../CardModal';
@@ -19,9 +18,7 @@ function Form() {
       case 'reset':
         return init;
       case 'change':
-        /*eslint-disable */
         const { name, value } = action.element;
-        /*eslint-enable */
         state = { ...state, [name]: value };
         setDueDate({ from: state.dueDateFrom, to: state.dueDateTo });
         getTasks(state.dueDateFrom, state.dueDateTo);
@@ -78,9 +75,5 @@ function Form() {
     </form>
   );
 }
-
-Form.propTypes = {
-  getNewTask: PropTypes.func
-};
 
 export default Form;

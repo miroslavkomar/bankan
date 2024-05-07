@@ -1,15 +1,15 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
-import {Button, Form, TextArea} from 'semantic-ui-react';
-import {useDidUpdate, useToggle} from '../../../lib/hooks';
+import { Button, Form, TextArea } from 'semantic-ui-react';
+import { useDidUpdate, useToggle } from '../../../lib/hooks';
 
-import {useClosableForm, useForm} from '../../../hooks';
+import { useClosableForm, useForm } from '../../../hooks';
 
 import styles from './CommentAdd.module.css';
 
 const DEFAULT_DATA = {
-  text: '',
+  text: ''
 };
 
 const CommentAdd = React.memo(({ onCreate }) => {
@@ -26,7 +26,7 @@ const CommentAdd = React.memo(({ onCreate }) => {
   const submit = useCallback(() => {
     const cleanData = {
       ...data,
-      text: data.text.trim(),
+      text: data.text.trim()
     };
 
     if (!cleanData.text) {
@@ -50,10 +50,11 @@ const CommentAdd = React.memo(({ onCreate }) => {
         submit();
       }
     },
-    [submit],
+    [submit]
   );
 
-  const [handleFieldBlur, handleControlMouseOver, handleControlMouseOut] = useClosableForm(close);
+  const [handleFieldBlur, handleControlMouseOver, handleControlMouseOut] =
+    useClosableForm(close);
 
   const handleSubmit = useCallback(() => {
     submit();
@@ -68,9 +69,9 @@ const CommentAdd = React.memo(({ onCreate }) => {
       <TextArea
         ref={textField}
         as={TextareaAutosize}
-        name="text"
+        name='text'
         value={data.text}
-        placeholder={('common.writeComment')}
+        placeholder={'Write a note'}
         minRows={isOpened ? 3 : 1}
         spellCheck={false}
         className={styles.field}
@@ -83,7 +84,7 @@ const CommentAdd = React.memo(({ onCreate }) => {
         <div className={styles.controls}>
           <Button
             positive
-            content={('action.addComment')}
+            content={'Add note'}
             onMouseOver={handleControlMouseOver}
             onMouseOut={handleControlMouseOut}
           />
@@ -94,7 +95,7 @@ const CommentAdd = React.memo(({ onCreate }) => {
 });
 
 CommentAdd.propTypes = {
-  onCreate: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired
 };
 
 export default CommentAdd;

@@ -12,11 +12,12 @@ import DeleteStep from '../DeleteStep';
 import styles from './CardModal.module.css';
 import DescriptionEdit from './DescriptionEdit';
 import { useTasks } from '../../contexts/TaskContext';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import { usePriorities } from '../../contexts/PriorityContext';
 import { useTaskStates } from '../../contexts/TaskStateContext';
 import { useDueDate } from '../../contexts/DueDateContext';
+import Activities from './Activities/Activities';
 
 const taskLabel = {
   LOW: { fontColor: 'gray', color: 'light-gray' },
@@ -27,10 +28,11 @@ const taskLabel = {
   DONE: { fontColor: 'gray', color: 'light-purple' }
 };
 
-function CardModal({ initialTask, onCloseActionCallback }) {
-  const { getTasks } = useTasks();
+function CardModal({ taskId, onCloseActionCallback }) {
+  const { tasks, getTasks } = useTasks();
   const { getDueDate } = useDueDate();
-  const [task, setTask] = useState({ ...initialTask });
+  const [task, setTask] = useState(tasks.find((task) => task.id === taskId));
+
   const { priorities } = usePriorities();
   const { taskStates } = useTaskStates();
 
@@ -58,10 +60,9 @@ function CardModal({ initialTask, onCloseActionCallback }) {
   // fetchovacia funkcia
   // useEffect v ktorom sa zavola fetch pre description
 
-  const handleFieldUpdate = useCallback((fieldName, newValue) => {
-    task[fieldName] = newValue;
-    setTask(task);
-  }, []);
+  const handleFieldUpdate = (newField) => {
+    setTask({ ...task, ...newField });
+  };
 
   const onSave = async (e) => {
     e.preventDefault();
@@ -93,7 +94,7 @@ function CardModal({ initialTask, onCloseActionCallback }) {
             <Icon name='list alternate outline' className={styles.moduleIcon} />
             <div className={styles.headerTitleWrapper}>
               <NameField
-                defaultValue={initialTask ? initialTask.name : 'Task name'}
+                defaultValue={taskId ? task.name : 'Task name'}
                 onUpdate={handleFieldUpdate}
               />
             </div>
@@ -102,7 +103,7 @@ function CardModal({ initialTask, onCloseActionCallback }) {
       </Grid.Row>
       <Grid.Row className={styles.modalPadding}>
         <Grid.Column width={10} className={styles.contentPadding}>
-          {initialTask && (
+          {taskId && (
             <div className={styles.moduleWrapper}>
               <div className={styles.attachments}>
                 <div className={styles.text}>Priority</div>
@@ -150,11 +151,12 @@ function CardModal({ initialTask, onCloseActionCallback }) {
               />
             </div>
           </div>
+          <Activities></Activities>
         </Grid.Column>
         <Grid.Column width={4} className={styles.sidebarPadding}>
           <div className={styles.actions}>
             <span className={styles.actionsTitle}>Add to card</span>
-            {initialTask && (
+            {taskId && (
               <TaskStateChangePopup
                 defaultValue={task.stateId}
                 onUpdate={handleFieldUpdate}
@@ -183,7 +185,7 @@ function CardModal({ initialTask, onCloseActionCallback }) {
               </Button>
             </DueDateEditPopup>
             <PriorityChangePopup
-              defaultValue={task.priorityId}
+              defaultValue={task ? task.priorityId : ''}
               onUpdate={handleFieldUpdate}
             >
               <Button fluid className={styles.actionButton}>
@@ -194,7 +196,7 @@ function CardModal({ initialTask, onCloseActionCallback }) {
           </div>
           <div className={styles.actions}>
             <span className={styles.actionsTitle}>Actions</span>
-            {initialTask && (
+            {taskId && (
               <DeletePopup
                 title='Delete Task'
                 content='Are you sure you want to delete this task ?'
@@ -234,12 +236,12 @@ function CardModal({ initialTask, onCloseActionCallback }) {
 }
 
 CardModal.propTypes = {
-  initialTask: PropTypes.object,
+  taskId: PropTypes.string,
   onCloseActionCallback: PropTypes.func.isRequired
 };
 
 CardModal.defaultProps = {
-  initialTask: undefined
+  taskId: undefined
 };
 
 export default CardModal;

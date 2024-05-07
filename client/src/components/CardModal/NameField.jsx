@@ -8,10 +8,6 @@ import styles from './NameField.module.css';
 function NameField({ defaultValue, onUpdate }) {
   const [value, setValue] = useState(defaultValue);
 
-  useEffect(() => {
-    onUpdate('name', value);
-  }, []);
-
   const isFocused = useRef(false);
 
   const handleFocus = useCallback(() => {
@@ -40,10 +36,10 @@ function NameField({ defaultValue, onUpdate }) {
     }
   }, [defaultValue, onUpdate, value, setValue]);
 
-  const handleUpdate = useCallback((e) => {
+  const handleUpdate = (e) => {
     setValue(e.target.value);
-    onUpdate('name', e.target.value);
-  }, []);
+    onUpdate({ name: e.target.value });
+  };
 
   return (
     <TextArea

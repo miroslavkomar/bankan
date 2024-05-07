@@ -10,17 +10,14 @@ function PriorityChangeStep({ defaultValue, onUpdate, onClose }) {
   const [value, setValue] = useState(defaultValue);
   const { priorities } = usePriorities();
 
-  const handleChange = useCallback(
-    (e, data) => {
-      setValue(data.value);
-    },
-    [value]
-  );
+  const handleChange = (e, data) => {
+    setValue(data.value);
+  };
 
-  const handleSubmit = useCallback(() => {
-    onUpdate('priorityId', value);
+  const handleSubmit = () => {
+    onUpdate({ priorityId: value });
     onClose();
-  }, [value]);
+  };
 
   return (
     <>

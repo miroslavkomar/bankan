@@ -13,6 +13,7 @@ const SIZES = {
   MEDIUM: 'medium',
   LARGE: 'large',
   MASSIVE: 'massive',
+  AUTO: 'auto'
 };
 
 const COLORS = [
@@ -22,7 +23,7 @@ const COLORS = [
   'carrot',
   'alizarin',
   'turquoise',
-  'midnight-blue',
+  'midnight-blue'
 ];
 
 const getColor = (name) => {
@@ -34,46 +35,28 @@ const getColor = (name) => {
   return COLORS[sum % COLORS.length];
 };
 
-const User = React.memo(({ name, avatarUrl, size, isDisabled, onClick }) => {
-  const contentNode = (
+function User({ name, size }) {
+  return (
     <span
       title={name}
       className={classNames(
-          styles.wrapper,
-          styles[`wrapper${upperFirst(size)}`],
-          onClick && styles.wrapperHoverable,
-          !avatarUrl && styles[`background${upperFirst(camelCase(getColor(name)))}`],
+        styles.wrapper,
+        styles[`wrapper${upperFirst(size)}`],
+        styles[`background${upperFirst(camelCase(getColor(name)))}`]
       )}
-      style={{
-        background: avatarUrl && `url("${avatarUrl}") center / cover`,
-      }}
     >
-      {!avatarUrl && <span className={styles.initials}>{initials(name)}</span>}
+      <span className={styles.initials}>{initials(name)}</span>
     </span>
   );
-
-  return onClick ? (
-    <button type="button" disabled={isDisabled} className={styles.button} onClick={onClick}>
-      {contentNode}
-    </button>
-  ) : (
-    contentNode
-  );
-});
+}
 
 User.propTypes = {
   name: PropTypes.string.isRequired,
-  avatarUrl: PropTypes.string,
-  size: PropTypes.oneOf(Object.values(SIZES)),
-  isDisabled: PropTypes.bool,
-  onClick: PropTypes.func,
+  size: PropTypes.oneOf(Object.values(SIZES))
 };
 
 User.defaultProps = {
-  avatarUrl: undefined,
-  size: SIZES.MEDIUM,
-  isDisabled: false,
-  onClick: undefined,
+  size: SIZES.AUTO
 };
 
 export default User;

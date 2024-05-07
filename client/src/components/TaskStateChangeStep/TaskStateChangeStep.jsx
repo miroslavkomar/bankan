@@ -4,23 +4,20 @@ import { Popup } from '../../lib/custom-ui';
 
 import styles from './TaskStateChangeStep.module.css';
 import { useTaskStates } from '../../contexts/TaskStateContext';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 function TaskStateChangeStep({ defaultValue, onUpdate, onClose }) {
   const [value, setValue] = useState(defaultValue);
   const { taskStates } = useTaskStates();
 
-  const handleChange = useCallback(
-    (e, data) => {
-      setValue(data.value);
-    },
-    [value]
-  );
+  const handleChange = (e, data) => {
+    setValue(data.value);
+  };
 
-  const handleSubmit = useCallback(() => {
-    onUpdate('stateId', value);
+  const handleSubmit = () => {
+    onUpdate({ stateId: value });
     onClose();
-  }, [value]);
+  };
 
   return (
     <>

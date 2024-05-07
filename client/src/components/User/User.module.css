@@ -20,7 +20,6 @@
   line-height: 1;
   outline: none;
   text-align: center;
-  vertical-align: top;
 }
 
 .wrapperHoverable:hover {
@@ -68,6 +67,14 @@
   height: 100px;
   padding: 32px 0 10px;
   width: 100px;
+}
+
+.wrapperAuto {
+  font-size: 14px;
+  font-weight: 500;
+  height: auto;
+  padding: 10px 0;
+  width : 32px;
 }
 
 /* Backgrounds */

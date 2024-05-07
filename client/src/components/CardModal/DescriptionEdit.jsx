@@ -3,16 +3,16 @@ import { Form, TextArea } from 'semantic-ui-react';
 
 import './DescriptionEdit.module.css';
 import TextareaAutosize from 'react-textarea-autosize';
-import styles from './Activities/CommentAdd.module.css';
-import { useCallback, useState } from 'react';
+import styles from './DescriptionEdit.module.css';
+import { useState } from 'react';
 
 function DescriptionEdit({ defaultValue, onUpdate }) {
   const [value, setValue] = useState(defaultValue);
 
-  const handleUpdate = useCallback((e) => {
+  const handleUpdate = (e) => {
     setValue(e.target.value);
-    onUpdate('description', e.target.value);
-  }, []);
+    onUpdate({ description: e.target.value });
+  };
 
   return (
     <Form>
