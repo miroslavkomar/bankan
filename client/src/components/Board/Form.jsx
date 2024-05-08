@@ -55,7 +55,6 @@ function Form() {
             onChange={(e) => dispatch({ type: 'change', element: e.target })}
             placeholder='due date from'
           />
-          -
           <input
             name='dueDateTo'
             className={'dueDateInput'}

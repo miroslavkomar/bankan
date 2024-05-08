@@ -56,10 +56,6 @@ function CardModal({ taskId, onCloseActionCallback }) {
   const TaskStateChangePopup = usePopup(TaskStateChangeStep);
   const DeletePopup = usePopup(DeleteStep);
 
-  // const [description, setDescription] = useState([]); pre description
-  // fetchovacia funkcia
-  // useEffect v ktorom sa zavola fetch pre description
-
   const handleFieldUpdate = (newField) => {
     setTask({ ...task, ...newField });
   };
@@ -151,7 +147,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
               />
             </div>
           </div>
-          <Activities></Activities>
+          {task && <Activities taskId={task.id} />}
         </Grid.Column>
         <Grid.Column width={4} className={styles.sidebarPadding}>
           <div className={styles.actions}>

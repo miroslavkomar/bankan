@@ -1,6 +1,5 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Comment } from 'semantic-ui-react';
 import { usePopup } from '../../../lib/popup';
 import { Markdown } from '../../../lib/custom-ui';
@@ -10,13 +9,29 @@ import User from '../../User';
 import DeleteStep from '../../DeleteStep';
 
 import styles from './ItemComment.module.css';
+import moment from 'moment';
 
-function ItemComment({ data, createdAt, user }) {
-  const commentEdit = useRef(null);
+const ItemComment = React.memo(({ data, user, onUpdate }) => {
+  const [showCommentEdit, setShowCommentEdit] = useState(false);
 
   const handleEditClick = useCallback(() => {
-    commentEdit.current.open();
-  }, []);
+    setShowCommentEdit(true);
+  });
+
+  const onCommentEditClose = (value) => {
+    setShowCommentEdit(value);
+  };
+
+  const handleNoteUpdate = (note) => {
+    onUpdate(note);
+  };
+
+  const onDelete = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`http://localhost:8000/note/${data.id}`, {
+      method: 'DELETE'
+    });
+  };
 
   const DeletePopup = usePopup(DeleteStep);
 
@@ -25,37 +40,49 @@ function ItemComment({ data, createdAt, user }) {
       <span className={styles.user}>
         <User size='auto' name={user} />
       </span>
-      <div className={classNames(styles.content)}>
+      <div className={styles.content}>
         <div className={styles.title}>
           <span className={styles.author}>{user}</span>
-          <span className={styles.date}>{createdAt}</span>
+          <span className={styles.date}>
+            {moment(data.changeDate).format('D.M.YYYY HH:mm')}
+          </span>
         </div>
-        <CommentEdit ref={commentEdit} defaultData={data}>
+        <CommentEdit
+          defaultData={data}
+          onUpdate={handleNoteUpdate}
+          isOpened={showCommentEdit}
+          onCloseActionCallback={onCommentEditClose}
+        ></CommentEdit>
+        {!showCommentEdit && (
           <>
             <div className={styles.text}>
-              <Markdown linkTarget='_blank'>asdasfsadfsdfasdf</Markdown>
+              <Markdown linkTarget='_blank'>{data.text}</Markdown>
             </div>
             <Comment.Actions>
-              <Comment.Action as='button' content={'Edit'} />
+              <Comment.Action
+                as='button'
+                content={'Edit'}
+                onClick={handleEditClick}
+              />
               <DeletePopup
                 title='Delete Note'
                 content='Are you sure you want to delete this note ?'
                 buttonContent='Delete note'
+                onConfirm={onDelete}
               >
                 <Comment.Action as='button' content={'Delete'} />
               </DeletePopup>
             </Comment.Actions>
           </>
-        </CommentEdit>
+        )}
       </div>
     </Comment>
   );
-}
+});
 
 ItemComment.propTypes = {
-  data: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  createdAt: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
+  data: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default ItemComment;

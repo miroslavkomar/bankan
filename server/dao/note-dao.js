@@ -34,7 +34,7 @@ function update(note) {
   try {
     const currentNote = get(note.id);
     if (!currentNote) return null;
-    const newNote = note;
+    const newNote = {...currentNote, ...note};
     const filePath = path.join(noteFolderPath, `${note.id}.json`);
     const fileData = JSON.stringify(newNote);
     fs.writeFileSync(filePath, fileData, "utf8");
