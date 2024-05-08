@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Comment, Icon } from 'semantic-ui-react';
 
-import CommentAdd from './CommentAdd';
+import NoteAdd from './NoteAdd';
 
-import styles from './Activities.module.css';
-import ItemComment from './ItemComment';
+import styles from './Notes.module.css';
+import ItemNote from './ItemNote';
 import PropTypes from 'prop-types';
 
-function Activities({ taskId }) {
+function Notes({ taskId }) {
   const [notes, setNotes] = useState([]);
 
   const getNotes = async () => {
@@ -65,8 +65,8 @@ function Activities({ taskId }) {
     const jsonResponse = await response.json();
     if (response.status < 400) {
       newNote = { ...newNote, ...jsonResponse };
-      setNotes((prevState) =>
-        prevState.map((prevNote) => {
+      setNotes((prevNotes) =>
+        prevNotes.map((prevNote) => {
           if (prevNote.id === newNote.id) {
             return {
               ...prevNote,
@@ -79,12 +79,23 @@ function Activities({ taskId }) {
     }
   };
 
+  const onDelete = async (note) => {
+    const response = await fetch(`http://localhost:8000/note/${note.id}`, {
+      method: 'DELETE'
+    });
+    if (response.status < 400) {
+      setNotes((prevNotes) => {
+        return prevNotes.filter((prevNote) => prevNote.id !== note.id);
+      });
+    }
+  };
+
   return (
     <div className={styles.contentModule}>
       <div className={styles.moduleWrapper}>
         <Icon name='list ul' className={styles.moduleIcon} />
         <div className={styles.moduleHeader}>Notes</div>
-        <CommentAdd onCreate={onCreate} />
+        <NoteAdd onCreate={onCreate} />
         <div className={styles.wrapper}>
           <Comment.Group>
             {notes
@@ -92,11 +103,12 @@ function Activities({ taskId }) {
                 return note1.changeDate < note2.changeDate ? -1 : 0;
               })
               .map((note) => (
-                <ItemComment
+                <ItemNote
                   key={note.id}
-                  data={note}
+                  note={note}
                   user={'Firstname Surname'}
                   onUpdate={onUpdate}
+                  onDelete={onDelete}
                 />
               ))}
           </Comment.Group>
@@ -106,8 +118,8 @@ function Activities({ taskId }) {
   );
 }
 
-Activities.propTypes = {
+Notes.propTypes = {
   taskId: PropTypes.string.isRequired
 };
 
-export default Activities;
+export default Notes;

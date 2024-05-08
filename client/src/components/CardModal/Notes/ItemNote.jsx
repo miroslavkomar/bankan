@@ -1,36 +1,29 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Comment } from 'semantic-ui-react';
 import { usePopup } from '../../../lib/popup';
 import { Markdown } from '../../../lib/custom-ui';
 
-import CommentEdit from './CommentEdit';
+import NoteEdit from './NoteEdit';
 import User from '../../User';
 import DeleteStep from '../../DeleteStep';
 
-import styles from './ItemComment.module.css';
+import styles from './ItemNote.module.css';
 import moment from 'moment';
 
-const ItemComment = React.memo(({ data, user, onUpdate }) => {
-  const [showCommentEdit, setShowCommentEdit] = useState(false);
+function ItemNote({ note, user, onUpdate, onDelete }) {
+  const [showNoteEdit, setShowNoteEdit] = useState(false);
 
-  const handleEditClick = useCallback(() => {
-    setShowCommentEdit(true);
-  });
-
-  const onCommentEditClose = (value) => {
-    setShowCommentEdit(value);
+  const handleEditClick = () => {
+    setShowNoteEdit(true);
   };
 
-  const handleNoteUpdate = (note) => {
-    onUpdate(note);
+  const onNoteEditClose = (value) => {
+    setShowNoteEdit(value);
   };
 
-  const onDelete = async (e) => {
-    e.preventDefault();
-    const response = await fetch(`http://localhost:8000/note/${data.id}`, {
-      method: 'DELETE'
-    });
+  const handleNoteDelete = () => {
+    onDelete(note);
   };
 
   const DeletePopup = usePopup(DeleteStep);
@@ -44,19 +37,19 @@ const ItemComment = React.memo(({ data, user, onUpdate }) => {
         <div className={styles.title}>
           <span className={styles.author}>{user}</span>
           <span className={styles.date}>
-            {moment(data.changeDate).format('D.M.YYYY HH:mm')}
+            {moment(note.changeDate).format('D.M.YYYY HH:mm')}
           </span>
         </div>
-        <CommentEdit
-          defaultData={data}
-          onUpdate={handleNoteUpdate}
-          isOpened={showCommentEdit}
-          onCloseActionCallback={onCommentEditClose}
-        ></CommentEdit>
-        {!showCommentEdit && (
+        <NoteEdit
+          defaultData={note}
+          onUpdate={onUpdate}
+          isOpened={showNoteEdit}
+          onCloseActionCallback={onNoteEditClose}
+        ></NoteEdit>
+        {!showNoteEdit && (
           <>
             <div className={styles.text}>
-              <Markdown linkTarget='_blank'>{data.text}</Markdown>
+              <Markdown linkTarget='_blank'>{note.text}</Markdown>
             </div>
             <Comment.Actions>
               <Comment.Action
@@ -68,7 +61,7 @@ const ItemComment = React.memo(({ data, user, onUpdate }) => {
                 title='Delete Note'
                 content='Are you sure you want to delete this note ?'
                 buttonContent='Delete note'
-                onConfirm={onDelete}
+                onConfirm={handleNoteDelete}
               >
                 <Comment.Action as='button' content={'Delete'} />
               </DeletePopup>
@@ -78,11 +71,13 @@ const ItemComment = React.memo(({ data, user, onUpdate }) => {
       </div>
     </Comment>
   );
-});
+}
 
-ItemComment.propTypes = {
-  data: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+ItemNote.propTypes = {
+  note: PropTypes.object.isRequired,
+  user: PropTypes.string,
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
-export default ItemComment;
+export default ItemNote;

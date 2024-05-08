@@ -1,15 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'semantic-ui-react';
 import { Input, Popup } from '../../lib/custom-ui';
 
 import styles from './DueDateEditStep.module.css';
-import moment from 'moment';
 
 function DueDateEditStep({ defaultValue, onUpdate, onClose }) {
-  const [value, setValue] = useState(
-    defaultValue ? defaultValue : moment(new Date()).format('YYYY-MM-DD')
-  );
+  const [value, setValue] = useState(defaultValue ? defaultValue : '');
 
   const handleChange = (e, data) => {
     setValue(data.value);

@@ -6,21 +6,16 @@ import { Button, Form, TextArea } from 'semantic-ui-react';
 
 import { useClosableForm, useForm } from '../../../hooks';
 
-import styles from './CommentEdit.module.css';
+import styles from './NoteEdit.module.css';
 
-function CommentEdit({
-  defaultData,
-  onUpdate,
-  isOpened,
-  onCloseActionCallback
-}) {
+function NoteEdit({ defaultData, onUpdate, isOpened, onCloseActionCallback }) {
   const [data, handleFieldChange, setData] = useForm(defaultData);
   const textField = useRef(null);
 
-  const close = useCallback(() => {
+  const close = () => {
     setData(defaultData);
     onCloseActionCallback(false);
-  }, []);
+  };
 
   useEffect(() => {
     if (isOpened) {
@@ -28,7 +23,7 @@ function CommentEdit({
     }
   }, [isOpened]);
 
-  const submit = useCallback(() => {
+  const submit = () => {
     const cleanData = {
       ...data,
       text: data.text.trim()
@@ -37,9 +32,10 @@ function CommentEdit({
     if (cleanData.text && !dequal(cleanData, defaultData)) {
       onUpdate(cleanData);
     }
+    handleControlMouseOut();
 
     close();
-  }, [defaultData, onUpdate, data, close]);
+  };
 
   const handleFieldKeyDown = useCallback(
     (event) => {
@@ -53,9 +49,9 @@ function CommentEdit({
   const [handleFieldBlur, handleControlMouseOver, handleControlMouseOut] =
     useClosableForm(close);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     submit();
-  }, [submit]);
+  };
 
   return (
     <>
@@ -87,10 +83,9 @@ function CommentEdit({
   );
 }
 
-CommentEdit.propTypes = {
-  children: PropTypes.element.isRequired,
-  defaultData: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+NoteEdit.propTypes = {
+  defaultData: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired
 };
 
-export default React.memo(CommentEdit);
+export default NoteEdit;

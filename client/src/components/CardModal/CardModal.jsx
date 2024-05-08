@@ -12,12 +12,11 @@ import DeleteStep from '../DeleteStep';
 import styles from './CardModal.module.css';
 import DescriptionEdit from './DescriptionEdit';
 import { useTasks } from '../../contexts/TaskContext';
-import { useCallback, useEffect, useState } from 'react';
-import moment from 'moment';
+import { useState } from 'react';
 import { usePriorities } from '../../contexts/PriorityContext';
 import { useTaskStates } from '../../contexts/TaskStateContext';
 import { useDueDate } from '../../contexts/DueDateContext';
-import Activities from './Activities/Activities';
+import Notes from './Notes/Notes';
 
 const taskLabel = {
   LOW: { fontColor: 'gray', color: 'light-gray' },
@@ -31,7 +30,10 @@ const taskLabel = {
 function CardModal({ taskId, onCloseActionCallback }) {
   const { tasks, getTasks } = useTasks();
   const { getDueDate } = useDueDate();
-  const [task, setTask] = useState(tasks.find((task) => task.id === taskId));
+  const [task, setTask] = useState({
+    name: 'Task Name',
+    ...tasks.find((task) => task.id === taskId)
+  });
 
   const { priorities } = usePriorities();
   const { taskStates } = useTaskStates();
@@ -63,7 +65,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
   const onSave = async (e) => {
     e.preventDefault();
     const response = await fetch(`http://localhost:8000/task`, {
-      method: task.id ? 'PUT' : 'POST',
+      method: taskId ? 'PUT' : 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -90,7 +92,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
             <Icon name='list alternate outline' className={styles.moduleIcon} />
             <div className={styles.headerTitleWrapper}>
               <NameField
-                defaultValue={taskId ? task.name : 'Task name'}
+                defaultValue={task.name}
                 onUpdate={handleFieldUpdate}
               />
             </div>
@@ -147,7 +149,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
               />
             </div>
           </div>
-          {task && <Activities taskId={task.id} />}
+          {taskId && <Notes taskId={task.id} />}
         </Grid.Column>
         <Grid.Column width={4} className={styles.sidebarPadding}>
           <div className={styles.actions}>
@@ -167,9 +169,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
               </TaskStateChangePopup>
             )}
             <DueDateEditPopup
-              defaultValue={
-                task ? task.dueDate : moment(new Date()).format('YYYY-MM-DD')
-              }
+              defaultValue={task ? task.dueDate : ''}
               onUpdate={handleFieldUpdate}
             >
               <Button fluid className={styles.actionButton}>

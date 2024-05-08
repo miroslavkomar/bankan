@@ -6,13 +6,13 @@ import { useDidUpdate, useToggle } from '../../../lib/hooks';
 
 import { useClosableForm, useForm } from '../../../hooks';
 
-import styles from './CommentAdd.module.css';
+import styles from './NoteAdd.module.css';
 
 const DEFAULT_DATA = {
   text: ''
 };
 
-const CommentAdd = React.memo(({ onCreate }) => {
+const NoteAdd = React.memo(({ onCreate }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [data, handleFieldChange, setData] = useForm(DEFAULT_DATA);
   const [selectTextFieldState, selectTextField] = useToggle();
@@ -94,8 +94,8 @@ const CommentAdd = React.memo(({ onCreate }) => {
   );
 });
 
-CommentAdd.propTypes = {
+NoteAdd.propTypes = {
   onCreate: PropTypes.func.isRequired
 };
 
-export default CommentAdd;
+export default NoteAdd;
