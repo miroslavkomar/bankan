@@ -10,6 +10,10 @@ import PropTypes from 'prop-types';
 function Notes({ taskId }) {
   const [notes, setNotes] = useState([]);
 
+  useEffect(() => {
+    getNotes();
+  }, []);
+
   const getNotes = async () => {
     const response = await fetch(
       'http://localhost:8000/note?' +
@@ -19,13 +23,15 @@ function Notes({ taskId }) {
       }
     );
     const jsonResponse = await response.json();
-    setNotes(jsonResponse);
-    return response.status < 400;
+    if (response.status < 400) {
+      setNotes(jsonResponse);
+    } else {
+      alert(
+        'Something went wrong while getting notes: ' +
+          JSON.stringify(jsonResponse)
+      );
+    }
   };
-
-  useEffect(() => {
-    getNotes();
-  }, []);
 
   const onCreate = async (note) => {
     const response = await fetch(`http://localhost:8000/note`, {
@@ -39,7 +45,7 @@ function Notes({ taskId }) {
       })
     });
     const jsonResponse = await response.json();
-    response.status < 400 &&
+    if (response.status < 400) {
       setNotes([
         ...notes,
         {
@@ -49,6 +55,12 @@ function Notes({ taskId }) {
           changeDate: jsonResponse.changeDate
         }
       ]);
+    } else {
+      alert(
+        'Something went wrong while creating note: ' +
+          JSON.stringify(jsonResponse)
+      );
+    }
   };
 
   const onUpdate = async (newNote) => {
@@ -76,6 +88,11 @@ function Notes({ taskId }) {
           return prevNote;
         })
       );
+    } else {
+      alert(
+        'Something went wrong while updating note: ' +
+          JSON.stringify(jsonResponse)
+      );
     }
   };
 
@@ -87,6 +104,8 @@ function Notes({ taskId }) {
       setNotes((prevNotes) => {
         return prevNotes.filter((prevNote) => prevNote.id !== note.id);
       });
+    } else {
+      alert('Something went wrong while deleting note');
     }
   };
 

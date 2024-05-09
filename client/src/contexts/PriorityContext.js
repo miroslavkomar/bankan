@@ -15,8 +15,11 @@ export const PriorityProvider = ({ children }) => {
       method: 'GET'
     });
     const jsonResponse = await response.json();
-    setPriorities(jsonResponse);
-    return response.status === 200;
+    if (response.status < 400) {
+      setPriorities(jsonResponse);
+    } else {
+      throw new Error(JSON.stringify(jsonResponse, null, 2));
+    }
   };
 
   return (

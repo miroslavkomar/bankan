@@ -71,8 +71,15 @@ function CardModal({ taskId, onCloseActionCallback }) {
       },
       body: JSON.stringify(task)
     });
-    await getTasks(getDueDate().from, getDueDate().to);
-    response.status < 400 && onCloseActionCallback(false);
+    if (response.status < 400) {
+      await getTasks(getDueDate().from, getDueDate().to);
+      onCloseActionCallback(false);
+    } else {
+      alert(
+        'Something went wrong while creating task: ' +
+          JSON.stringify(await response.json())
+      );
+    }
   };
 
   const onDelete = async (e) => {
@@ -80,8 +87,12 @@ function CardModal({ taskId, onCloseActionCallback }) {
     const response = await fetch(`http://localhost:8000/task/${task.id}`, {
       method: 'DELETE'
     });
-    await getTasks();
-    response.status < 400 && onCloseActionCallback(false);
+    if (response.status < 400) {
+      await getTasks(getDueDate().from, getDueDate().to);
+      onCloseActionCallback(false);
+    } else {
+      alert('Something went wrong while deleting task');
+    }
   };
 
   const contentNode = (

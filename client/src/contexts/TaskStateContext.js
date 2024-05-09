@@ -15,8 +15,11 @@ export const TaskStateProvider = ({ children }) => {
       method: 'GET'
     });
     const jsonResponse = await response.json();
-    setTaskStates(jsonResponse);
-    return response.status === 200;
+    if (response.status < 400) {
+      setTaskStates(jsonResponse);
+    } else {
+      throw new Error(JSON.stringify(jsonResponse, null, 2));
+    }
   };
 
   return (
