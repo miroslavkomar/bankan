@@ -34,7 +34,7 @@ function NoteEdit({ defaultData, onUpdate, isOpened, onCloseActionCallback }) {
     }
     handleControlMouseOut();
 
-    close();
+    onCloseActionCallback(false);
   };
 
   const handleFieldKeyDown = useCallback(

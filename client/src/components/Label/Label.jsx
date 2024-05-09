@@ -44,7 +44,6 @@ Label.propTypes = {
   fontColor: PropTypes.oneOf(Object.values(FONT_COLORS)),
   color: PropTypes.oneOf(LabelColors).isRequired,
   size: PropTypes.oneOf(Object.values(SIZES)),
-  isDisabled: PropTypes.bool,
   onClick: PropTypes.func
 };
 
@@ -52,7 +51,6 @@ Label.defaultProps = {
   name: undefined,
   fontColor: 'white',
   size: SIZES.MEDIUM,
-  isDisabled: false,
   onClick: undefined
 };
 
