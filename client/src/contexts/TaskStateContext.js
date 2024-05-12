@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const initialState = {
   taskStates: [],
@@ -9,6 +9,10 @@ const TaskStateContext = createContext(initialState);
 
 export const TaskStateProvider = ({ children }) => {
   const [taskStates, setTaskStates] = useState([]);
+
+  useEffect(() => {
+    getTaskStates();
+  }, []);
 
   const getTaskStates = async () => {
     const response = await fetch('http://localhost:8000/state', {

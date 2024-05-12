@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const initialState = {
   priorities: [],
@@ -9,6 +9,10 @@ const PriorityContext = createContext(initialState);
 
 export const PriorityProvider = ({ children }) => {
   const [priorities, setPriorities] = useState([]);
+
+  useEffect(() => {
+    getPriorities();
+  }, []);
 
   const getPriorities = async () => {
     const response = await fetch('http://localhost:8000/priority', {

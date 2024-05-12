@@ -1,7 +1,9 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const initialState = {
   tasks: [],
+  tasksDueDate: {},
+  setTasksDueDate: () => {},
   getTasks: () => {}
 };
 
@@ -9,15 +11,20 @@ const TaskContext = createContext(initialState);
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
+  const [tasksDueDate, setDueDate] = useState({});
 
-  const getTasks = async (dueDateFrom, dueDateTo) => {
-    const searchParams = {};
-    dueDateFrom && (searchParams.dueDateFrom = dueDateFrom);
-    dueDateTo && (searchParams.dueDateTo = dueDateTo);
+  const setTasksDueDate = (dueDate) => {
+    setDueDate((prevDueDate) => ({ ...prevDueDate, ...dueDate }));
+  };
 
+  useEffect(() => {
+    getTasks();
+  }, [tasksDueDate]);
+
+  const getTasks = async () => {
     const response = await fetch(
       'http://localhost:8000/task?' +
-        new URLSearchParams(searchParams).toString(),
+        new URLSearchParams(tasksDueDate).toString(),
       {
         method: 'GET'
       }
@@ -31,7 +38,9 @@ export const TaskProvider = ({ children }) => {
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, getTasks }}>
+    <TaskContext.Provider
+      value={{ tasks, tasksDueDate, setTasksDueDate, getTasks }}
+    >
       {children}
     </TaskContext.Provider>
   );

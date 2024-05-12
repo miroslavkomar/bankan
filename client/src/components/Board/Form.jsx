@@ -2,15 +2,13 @@ import React, { useCallback, useReducer, useState } from 'react';
 import { useTasks } from '../../contexts/TaskContext';
 import moment from 'moment';
 import CardModal from '../CardModal';
-import { useDueDate } from '../../contexts/DueDateContext';
 
 function Form() {
   const init = {
     dueDateFrom: moment(new Date()).format('YYYY-MM-DD'),
     dueDateTo: moment(new Date()).format('YYYY-MM-DD')
   };
-  const { setDueDate } = useDueDate();
-  const { getTasks } = useTasks();
+  const { setTasksDueDate, getTasks } = useTasks();
   const [showCardModal, setShowCardModal] = useState(false);
 
   const reducer = (state, action) => {
@@ -20,8 +18,10 @@ function Form() {
       case 'change':
         const { name, value } = action.element;
         state = { ...state, [name]: value };
-        setDueDate({ from: state.dueDateFrom, to: state.dueDateTo });
-        getTasks(state.dueDateFrom, state.dueDateTo);
+        setTasksDueDate({
+          dueDateFrom: state.dueDateFrom,
+          dueDateTo: state.dueDateTo
+        });
         return state;
       default:
         return state;

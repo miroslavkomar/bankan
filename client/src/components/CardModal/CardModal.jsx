@@ -15,7 +15,6 @@ import { useTasks } from '../../contexts/TaskContext';
 import { useState } from 'react';
 import { usePriorities } from '../../contexts/PriorityContext';
 import { useTaskStates } from '../../contexts/TaskStateContext';
-import { useDueDate } from '../../contexts/DueDateContext';
 import Notes from './Notes/Notes';
 
 const taskLabel = {
@@ -29,7 +28,6 @@ const taskLabel = {
 
 function CardModal({ taskId, onCloseActionCallback }) {
   const { tasks, getTasks } = useTasks();
-  const { getDueDate } = useDueDate();
   const [task, setTask] = useState({
     name: 'Task Name',
     ...tasks.find((task) => task.id === taskId)
@@ -72,7 +70,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
       body: JSON.stringify(task)
     });
     if (response.status < 400) {
-      await getTasks(getDueDate().from, getDueDate().to);
+      await getTasks();
       onCloseActionCallback(false);
     } else {
       alert(
@@ -88,7 +86,7 @@ function CardModal({ taskId, onCloseActionCallback }) {
       method: 'DELETE'
     });
     if (response.status < 400) {
-      await getTasks(getDueDate().from, getDueDate().to);
+      await getTasks();
       onCloseActionCallback(false);
     } else {
       alert('Something went wrong while deleting task');
@@ -112,8 +110,8 @@ function CardModal({ taskId, onCloseActionCallback }) {
       </Grid.Row>
       <Grid.Row className={styles.modalPadding}>
         <Grid.Column width={10} className={styles.contentPadding}>
-          {taskId && (
-            <div className={styles.moduleWrapper}>
+          <div className={styles.moduleWrapper}>
+            {task.priorityId && (
               <div className={styles.attachments}>
                 <div className={styles.text}>Priority</div>
                 <span className={styles.attachment}>
@@ -125,8 +123,10 @@ function CardModal({ taskId, onCloseActionCallback }) {
                   />
                 </span>
               </div>
+            )}
+            {task.stateId && (
               <div className={styles.attachments}>
-                <div className={styles.text}>State</div>
+                <div className={styles.text}>Status</div>
                 <span className={styles.attachment}>
                   <Label
                     key={task.stateId}
@@ -137,6 +137,8 @@ function CardModal({ taskId, onCloseActionCallback }) {
                   />
                 </span>
               </div>
+            )}
+            {task.dueDate && (
               <div className={styles.attachments}>
                 <div className={styles.text}>Due date</div>
                 <span className={styles.attachment}>
@@ -148,8 +150,8 @@ function CardModal({ taskId, onCloseActionCallback }) {
                   />
                 </span>
               </div>
-            </div>
-          )}
+            )}
+          </div>
           <div className={styles.contentModule}>
             <div className={styles.moduleWrapper}>
               <Icon name='align justify' className={styles.moduleIcon} />
