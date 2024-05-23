@@ -8,6 +8,7 @@ import DueDate from '../DueDate';
 import styles from './Card.module.css';
 import CardModal from '../CardModal/CardModal';
 import { usePriorities } from '../../contexts/PriorityContext';
+import { Draggable } from 'react-beautiful-dnd';
 
 const priorityLabel = {
   LOW: { fontColor: 'gray', color: 'light-gray' },
@@ -73,16 +74,28 @@ function Card(task) {
   );
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.card}>
-        <Link className={styles.content} onClick={handleClick}>
-          {contentNode}
-        </Link>
-      </div>
-      {showCardModal ? (
-        <CardModal taskId={task.id} onCloseActionCallback={onModalClose} />
-      ) : null}
-    </div>
+    <Draggable
+      draggableId={`card:${task.id}`}
+      index={Math.floor(Math.random())}
+    >
+      {({ innerRef, draggableProps, dragHandleProps }) => (
+        <div
+          {...draggableProps}
+          {...dragHandleProps}
+          ref={innerRef}
+          className={styles.wrapper}
+        >
+          <div className={styles.card}>
+            <Link className={styles.content} onClick={handleClick}>
+              {contentNode}
+            </Link>
+          </div>
+          {showCardModal ? (
+            <CardModal taskId={task.id} onCloseActionCallback={onModalClose} />
+          ) : null}
+        </div>
+      )}
+    </Draggable>
   );
 }
 
