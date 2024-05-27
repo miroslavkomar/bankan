@@ -19,8 +19,8 @@ function Form() {
         const { name, value } = action.element;
         state = { ...state, [name]: value };
         setTasksDueDate({
-          dueDateFrom: state.dueDateFrom,
-          dueDateTo: state.dueDateTo
+          dueDateFrom: state.dueDateFrom ? state.dueDateFrom : init.dueDateFrom,
+          dueDateTo: state.dueDateTo ? state.dueDateTo : init.dueDateTo
         });
         return state;
       default:
