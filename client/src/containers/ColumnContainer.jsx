@@ -21,24 +21,22 @@ const initialColumns = [
 function ColumnContainer() {
   const { tasks } = useTasks();
   const { taskStates } = useTaskStates();
-  const [columns, setColumns] = useState(initialColumns);
+  const [columns, setColumns] = useState([]);
 
   useEffect(() => {
-    const drawnColumns = [...columns];
+    const drawnColumns = [...initialColumns];
     let columnIndex = 0;
-    drawnColumns.map((column) => {
-      console.log(taskStates);
-      if (!!taskStates.length) {
+    if (!!taskStates.length) {
+      drawnColumns.map((column) => {
         const state = taskStates.find((state) => state.name === column.status);
-        console.log('som tu');
         column.id = state.id;
         column.index = columnIndex;
-        // column.list = tasks.filter((task) => task.stateId === column.id);
+        column.list = tasks.filter((task) => task.stateId === column.id);
         columnIndex++;
-      }
-    });
-    setColumns(drawnColumns);
-  }, [taskStates]);
+      });
+      setColumns(drawnColumns);
+    }
+  }, [taskStates, tasks]);
 
   const onDragEnd = ({ source, destination }) => {
     // Make sure we have a valid destination
@@ -55,8 +53,8 @@ function ColumnContainer() {
     }
 
     // Set start and end variables
-    const start = columns[source.droppableId];
-    const end = columns[destination.droppableId];
+    const start = columns.find((column) => column.id === source.droppableId);
+    const end = columns.find((column) => column.id === destination.droppableId);
 
     // If start is the same as end, we're in the same column
     if (start === end) {

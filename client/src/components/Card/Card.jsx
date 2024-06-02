@@ -16,7 +16,7 @@ const priorityLabel = {
   HIGH: { fontColor: 'white', color: 'berry-red' }
 };
 
-function Card(task) {
+function Card({ task, index }) {
   const [showCardModal, setShowCardModal] = useState(false);
   const { priorities } = usePriorities();
 
@@ -74,10 +74,7 @@ function Card(task) {
   );
 
   return (
-    <Draggable
-      draggableId={`card:${task.id}`}
-      index={Math.floor(Math.random())}
-    >
+    <Draggable draggableId={`card:${task.id}`} index={index}>
       {({ innerRef, draggableProps, dragHandleProps }) => (
         <div
           {...draggableProps}
@@ -100,7 +97,8 @@ function Card(task) {
 }
 
 Card.propTypes = {
-  task: PropTypes.object
+  task: PropTypes.object,
+  index: PropTypes.number
 };
 
 export default Card;

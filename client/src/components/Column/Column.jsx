@@ -4,7 +4,10 @@ import Card from '../Card';
 import { Droppable } from 'react-beautiful-dnd';
 
 function Column({ column }) {
-  console.log(column);
+  let cardIndex = 0;
+  const cards = column.list.map((task) => {
+    return <Card key={task.id} task={task} index={cardIndex++} />;
+  });
   return (
     <>
       <div className={column.className}>
@@ -12,9 +15,7 @@ function Column({ column }) {
         <Droppable droppableId={column.id} index={column.index}>
           {({ innerRef, droppableProps, placeholder }) => (
             <div {...droppableProps} ref={innerRef}>
-              {column.list.map((task) => (
-                <Card key={task.id} {...task} />
-              ))}
+              {!!column.list.length && cards}
               {placeholder}
             </div>
           )}
